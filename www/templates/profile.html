@@ -1,0 +1,110 @@
+<ion-view view-title="Profile">
+  <ion-content>
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="getProfile()"></ion-refresher>
+    <h1>Profile</h1>
+    <div class="list" ng-show="!editable">
+      <a class="item" href="#">
+        Firstname: {{patient.firstname}}
+      </a>
+      <a class="item" href="#">
+        Lastname: {{patient.lastname}}
+      </a>
+      <a class="item" href="#">
+        Phone: {{patient.phone}}
+      </a>
+      <a class="item" href="#">
+        Address: {{patient.address}}
+      </a>
+      <a class="item" href="#">
+        Email: {{patient.email}}
+      </a>
+      <a class="item" href="#">
+        Birthday: {{patient.birthday}}
+      </a>
+      <a class="item" href="#">
+        Sex: {{patient.sex}}
+      </a>
+      <a class="item" href="#">
+        Blood Type: {{patient.bloodtype}}
+      </a>
+      <a class="item" href="#">
+        Organ Donor: {{patient.organdonor}}
+      </a>
+      <button class="button button-full button-balanced" ng-click="editable = !editable">
+        Edit
+      </button>
+    </div>
+
+    <div class="list" ng-show="editable">
+      <form>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">First Name</span>
+          <input ng-model="patient.firstname" type="text" placeholder="First Name">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Last Name</span>
+          <input ng-model="patient.lastname" type="text" placeholder="Last Name">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Phone</span>
+          <input ng-model="patient.phone" type="text" placeholder="Phone">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Address</span>
+          <input ng-model="patient.address" type="text" placeholder="Address">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Email</span>
+          <input ng-model="patient.email" type="email" placeholder="Email">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Birthday</span>
+          <input ng-model="patient.birthday" type="text">
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Sex
+          </div>
+          <select ng-model="patient.sex">
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Blood Type
+          </div>
+          <select ng-model="patient.bloodtype">
+            <option selected>Not sure</option>
+            <option>O−</option>
+            <option>O+</option>
+            <option>A−</option>
+            <option>A+</option>
+            <option>B-</option>
+            <option>B+</option>
+            <option>AB−</option>
+            <option>AB+</option>
+          </select>
+        </label>
+
+        <label class="item item-toggle">
+          Organ Donor
+          <label class="toggle toggle-assertive">
+            <input type="checkbox" ng-model="patient.organdonor">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </label>
+
+
+        <button class="button button-full button-balanced" ng-click="insertProfile(patient)">
+          Save
+        </button>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>

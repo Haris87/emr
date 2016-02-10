@@ -1,0 +1,130 @@
+<ion-view view-title="Hereditary History">
+  <ion-content>
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="getHereditary()"></ion-refresher>
+    <h1>Hereditary History</h1>
+    <div class="list" ng-show="!editable">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Heart Conditions</span>
+        <textarea readonly ng-model="hereditary.heartconditions" type="text" placeholder="Heart Conditions..."></textarea>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">High Blood Pressure</span>
+        <textarea readonly ng-model="hereditary.highbloodpressure" type="text" placeholder="High Blood Pressure..."></textarea>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Stroke</span>
+        <textarea readonly ng-model="hereditary.stroke" type="text" placeholder="Stroke..."></textarea>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Mental Illness</span>
+        <textarea readonly ng-model="hereditary.mentalillness" type="text" placeholder="Mental Illness..."></textarea>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Kidney disease</span>
+        <textarea readonly ng-model="hereditary.kindeydisease" type="text" placeholder="Kidney disease..."></textarea>
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Tumours</span>
+        <textarea readonly ng-model="hereditary.tumours" type="text" placeholder="Tumours..."></textarea>
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Alcoholism</span>
+        <textarea readonly ng-model="hereditary.alcoholism" type="text" placeholder="Alcoholism..."></textarea>
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Other</span>
+        <textarea readonly ng-model="hereditary.other" type="text" placeholder="Other..."></textarea>
+      </label>
+
+      <label class="item item-toggle">
+        Asthma
+        <label class="toggle toggle-balanced">
+          <input disabled type="checkbox" ng-model="hereditary.asthma">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </label>
+
+      <label class="item item-toggle">
+        Diabetes
+        <label class="toggle toggle-positive">
+          <input disabled type="checkbox" ng-model="hereditary.diabetes">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </label>
+      <button class="button button-full button-energized" ng-click="editable = !editable">
+        Edit
+      </button>
+    </div>
+
+    <div class="list" ng-show="editable">
+      <form>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Heart Conditions</span>
+          <textarea ng-model="hereditary.heartconditions" type="text" placeholder="Heart Conditions..."></textarea>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">High Blood Pressure</span>
+          <textarea ng-model="hereditary.highbloodpressure" type="text" placeholder="High Blood Pressure..."></textarea>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Stroke</span>
+          <textarea ng-model="hereditary.stroke" type="text" placeholder="Stroke..."></textarea>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Mental Illness</span>
+          <textarea ng-model="hereditary.mentalillness" type="text" placeholder="Mental Illness..."></textarea>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Kidney disease</span>
+          <textarea ng-model="hereditary.kindeydisease" type="text" placeholder="Kidney disease..."></textarea>
+        </label>
+
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Tumours</span>
+          <textarea ng-model="hereditary.tumours" type="text" placeholder="Tumours..."></textarea>
+        </label>
+
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Alcoholism</span>
+          <textarea ng-model="hereditary.alcoholism" type="text" placeholder="Alcoholism..."></textarea>
+        </label>
+
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Other</span>
+          <textarea ng-model="hereditary.other" type="text" placeholder="Other..."></textarea>
+        </label>
+
+        <label class="item item-toggle">
+          Asthma
+          <label class="toggle toggle-balanced">
+            <input type="checkbox" ng-model="hereditary.asthma">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </label>
+
+        <label class="item item-toggle">
+          Diabetes
+          <label class="toggle toggle-positive">
+            <input type="checkbox" ng-model="hereditary.diabetes">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </label>
+
+        <button class="button button-full button-balanced" ng-click="insertHereditary(hereditary)">
+          Save
+        </button>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,76 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="pincloudDark bar-dark">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-header-bar class="pincloudDark bar-dark">
+      <h1 class="title" style="color:white!important;">Menu</h1>
+    </ion-header-bar>
+    <ion-content class="sideMenuColor">
+      <div class="list">
+        <ion-item menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-pulse"></i> Dashboard
+        </ion-item>
+        <ion-item menu-close href="#/app/profile">
+          <i class="icon ion-ios-person-outline"></i> Profile
+        </ion-item>
+        <ion-item menu-close href="#/app/family">
+          <i class="icon ion-ios-people-outline"></i> Hereditary History
+        </ion-item>
+
+        <ion-item class="item-stable"
+                  ng-click="toggleGroup(1)"
+                  ng-class="{active: isGroupShown(1)}">
+          <i class="icon" ng-class="isGroupShown(1) ? 'ion-minus' : 'ion-plus'"></i>
+          Group 1
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(1)">
+          <i class="icon" ng-class="isGroupShown(1) ? 'ion-minus' : 'ion-plus'"></i>
+          Item
+        </ion-item>
+
+
+
+        <ion-item ng-click="showMeasurements = !showMeasurements"><!-- href="#/app/measurements" -->
+
+          <i class="icon ion-ios-speedometer-outline"></i>
+          Health Measurements
+          <i ng-show="!showMeasurements" class="icon ion-ios-arrow-left"></i><i ng-show="showMeasurements" class="icon ion-ios-arrow-down"></i>
+          <!-- <div class="list list-inset" style="background-color:rgba(255,255,255,0.1);" ng-show="showMeasurements"> -->
+          <ion-list type="list-inset" can-swipe="false" ng-show="showMeasurements">
+            <ion-item menu-close href="#/app/measurements">
+              <i class="icon ion-ios-speedometer-outline"></i> Health Measurements
+            </ion-item>
+            <ion-item menu-close href="#/app/measurements">
+              <i class="icon ion-ios-speedometer-outline"></i> Health Measurements
+            </ion-item>
+          <!-- </div> -->
+          </ion-list>
+        </ion-item>
+        <ion-item menu-close href="#/app/medical">
+          <i class="icon ion-ios-medkit-outline"></i> Medical History
+        </ion-item>
+        <ion-item menu-close href="#/app/habits">
+          <i class="icon ion-ios-wineglass-outline"></i> Habits
+        </ion-item>
+        <ion-item menu-close href="#/app/professionals">
+          <i class="icon ion-ios-flask-outline"></i> Health Professionals
+        </ion-item>
+        <ion-item menu-close href="#" ng-click="login()">
+          <i class="icon ion-ios-unlocked-outline"></i> Login
+        </ion-item>
+      </div>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

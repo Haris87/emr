@@ -1,0 +1,69 @@
+/* Empty. Add your own CSS if you like */
+body {
+  color:#666;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color:#1CAF9A !important;
+}
+
+label, p, span, input {
+  color:#666 !important;
+}
+
+.pincloudGreen {
+  background-color: #1CAF9A !important;
+  border-color: #1CAF9A !important;
+}
+
+.pincloudDark {
+  background-color: #2B3643 !important;
+}
+
+.sideMenuColor {
+  background-color: #364150 !important; /* This sets the background color*/
+ }
+
+/*Set the background to transparent for ion-item*/
+.sideMenuColor .item {
+  background-color: transparent;
+  border:none;   /*Removes all borders*/
+  border-top: 1px solid;   /*Top Border for each menu item*/
+  border-bottom:2px solid;   /*Bottom border for each menu item*/
+  border-color: #666;   /*Sets colors for top and bottom border*/
+  color: white;    /*Text color for each item*/
+}
+
+/*Changes the border for the last item*/
+.sideMenuColor .item:last-child {
+  border-bottom: 1px solid #666;
+}
+
+.sideMenuColor .item-complex .item-content, .dark .item-radio .item-content {
+  background-color: transparent;
+}
+
+/*Just makes the type white*/
+.sideMenuColor h2,
+.sideMenuColor h3,
+.sideMenuColor p,
+.sideMenuColor a {
+  color: #ABB4C0;  /*Text color for each item, overrides the color property above*/
+}
+
+
+/*--------------- accordion list --------------*/
+.list .item.item-accordion {
+  line-height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+/*--------------- accordion list --------------*/
