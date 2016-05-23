@@ -28,36 +28,158 @@
           <i class="icon ion-ios-people-outline"></i> Hereditary History
         </ion-item>
 
+        <!-- Health Measurements -->
         <ion-item class="item-stable"
                   ng-click="toggleGroup(1)"
                   ng-class="{active: isGroupShown(1)}">
-          <i class="icon" ng-class="isGroupShown(1) ? 'ion-minus' : 'ion-plus'"></i>
-          Group 1
+          <i class="icon ion-ios-person"></i>
+          Health Measurements
+          <i class="icon ion-ios-person" style="text-align:right;" ng-class="isGroupShown(1) ? 'ion-minus' : 'ion-plus'"></i>
         </ion-item>
         <ion-item class="item-accordion"
-                  ng-show="isGroupShown(1)">
-          <i class="icon" ng-class="isGroupShown(1) ? 'ion-minus' : 'ion-plus'"></i>
-          Item
+                  ng-show="isGroupShown(1)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person"></i>
+          Blood Pressure
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(1)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person"></i>
+          Blood Sugar
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(1)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person" ></i> <!-- ng-class="isGroupShown(1) ? 'ion-minus' : 'ion-plus'" -->
+          Weight
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(1)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person" ></i> <!-- ng-class="isGroupShown(1) ? 'ion-minus' : 'ion-plus'" -->
+          Physical Activity
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(1)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person" ></i> <!-- ng-class="isGroupShown(1) ? 'ion-minus' : 'ion-plus'" -->
+          Cholesterol
         </ion-item>
 
 
-
-        <ion-item ng-click="showMeasurements = !showMeasurements"><!-- href="#/app/measurements" -->
-
-          <i class="icon ion-ios-speedometer-outline"></i>
-          Health Measurements
-          <i ng-show="!showMeasurements" class="icon ion-ios-arrow-left"></i><i ng-show="showMeasurements" class="icon ion-ios-arrow-down"></i>
-          <!-- <div class="list list-inset" style="background-color:rgba(255,255,255,0.1);" ng-show="showMeasurements"> -->
-          <ion-list type="list-inset" can-swipe="false" ng-show="showMeasurements">
-            <ion-item menu-close href="#/app/measurements">
-              <i class="icon ion-ios-speedometer-outline"></i> Health Measurements
-            </ion-item>
-            <ion-item menu-close href="#/app/measurements">
-              <i class="icon ion-ios-speedometer-outline"></i> Health Measurements
-            </ion-item>
-          <!-- </div> -->
-          </ion-list>
+        <!-- Medical History -->
+        <ion-item class="item-stable"
+                  ng-click="toggleGroup(2)"
+                  ng-class="{active: isGroupShown(2)}">
+          <i class="icon ion-ios-medkit-outline"></i>
+          Medical History
+          <i class="icon ion-ios-person" style="text-align:right;" ng-class="isGroupShown(2) ? 'ion-minus' : 'ion-plus'"></i>
         </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(2)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person"></i>
+          Allergies
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(2)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person"></i>
+          Disabilities
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(2)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person" ></i> <!-- ng-class="isGroupShown(2) ? 'ion-minus' : 'ion-plus'" -->
+          Symptom Reports
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(2)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person" ></i> <!-- ng-class="isGroupShown(2) ? 'ion-minus' : 'ion-plus'" -->
+          Vaccinations
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(2)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person" ></i> <!-- ng-class="isGroupShown(2) ? 'ion-minus' : 'ion-plus'" -->
+          Diseases
+        </ion-item>
+
+        <!-- Habits -->
+        <ion-item class="item-stable"
+                  ng-click="toggleGroup(3)"
+                  ng-class="{active: isGroupShown(3)}">
+          <i class="icon ion-ios-medkit-outline"></i>
+          Habits
+          <i class="icon ion-ios-person" style="text-align:right;" ng-class="isGroupShown(3) ? 'ion-minus' : 'ion-plus'"></i>
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(3)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person"></i>
+          Diet
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(3)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person"></i>
+          Smoking
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(3)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person" ></i> <!-- ng-class="isGroupShown(3) ? 'ion-minus' : 'ion-plus'" -->
+          Alcohol
+        </ion-item>
+
+        <!-- Health Professionals -->
+        <ion-item class="item-stable"
+                  ng-click="toggleGroup(4)"
+                  ng-class="{active: isGroupShown(4)}">
+          <i class="icon ion-ios-medkit-outline"></i>
+          Health Professionals
+          <i class="icon ion-ios-person" style="text-align:right;" ng-class="isGroupShown(4) ? 'ion-minus' : 'ion-plus'"></i>
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(4)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person"></i>
+          Diagnoses
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(4)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person"></i>
+          Doctor Visits
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(4)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person" ></i> <!-- ng-class="isGroupShown(4) ? 'ion-minus' : 'ion-plus'" -->
+          Referrals
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(4)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person" ></i> <!-- ng-class="isGroupShown(4) ? 'ion-minus' : 'ion-plus'" -->
+          Hospitalisations
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(4)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person" ></i> <!-- ng-class="isGroupShown(4) ? 'ion-minus' : 'ion-plus'" -->
+          Medication
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-show="isGroupShown(4)"
+                  menu-close href="#/app/dashboard">
+          <i class="icon ion-ios-person" ></i> <!-- ng-class="isGroupShown(4) ? 'ion-minus' : 'ion-plus'" -->
+          Surgeries
+        </ion-item>
+
+
         <ion-item menu-close href="#/app/medical">
           <i class="icon ion-ios-medkit-outline"></i> Medical History
         </ion-item>
