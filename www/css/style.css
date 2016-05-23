@@ -26,12 +26,12 @@ label, p, span, input {
 
 /*Set the background to transparent for ion-item*/
 .sideMenuColor .item {
-  background-color: transparent;
+  background-color: transparent !important;
   border:none;   /*Removes all borders*/
   border-top: 1px solid;   /*Top Border for each menu item*/
   border-bottom:2px solid;   /*Bottom border for each menu item*/
   border-color: #666;   /*Sets colors for top and bottom border*/
-  color: white;    /*Text color for each item*/
+  color: #ABB4C0;   /*Text color for each item*/
 }
 
 /*Changes the border for the last item*/
@@ -66,5 +66,13 @@ label, p, span, input {
 .list .item.item-accordion.ng-hide-add,
 .list .item.item-accordion.ng-hide-remove {
   display: block !important;
+}
+
+.pull-left{
+  float:left;
+}
+
+.pull-right{
+  float:right;
 }
 /*--------------- accordion list --------------*/
