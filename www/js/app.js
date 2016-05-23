@@ -62,42 +62,193 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     })
 
-    .state('app.measurements', {
-      url: '/measurements',
+    .state('app.bloodpressure', {
+      url: '/bloodpressure',
       views: {
         'menuContent': {
-          templateUrl: 'templates/measurements.html',
-          controller: 'MeasurementsCtrl'
+          templateUrl: 'templates/bloodpressure.html',
+          controller: 'BloodPressureCtrl'
         }
       }
     })
 
-    .state('app.medical', {
-      url: '/medical',
+    .state('app.bloodsugar', {
+      url: '/bloodsugar',
       views: {
         'menuContent': {
-          templateUrl: 'templates/medical.html',
-          controller: 'MedicalCtrl'
+          templateUrl: 'templates/bloodsugar.html',
+          controller: 'BloodSugarCtrl'
         }
       }
     })
 
-    .state('app.habits', {
-      url: '/habits',
+    .state('app.weight', {
+      url: '/weight',
       views: {
         'menuContent': {
-          templateUrl: 'templates/habits.html',
-          controller: 'HabitsCtrl'
+          templateUrl: 'templates/weight.html',
+          controller: 'WeightCtrl'
         }
       }
     })
 
-    .state('app.professionals', {
-      url: '/professionals',
+    .state('app.physicalactivity', {
+      url: '/physicalactivity',
       views: {
         'menuContent': {
-          templateUrl: 'templates/professionals.html',
-          controller: 'ProfessionalsCtrl'
+          templateUrl: 'templates/physicalactivity.html',
+          controller: 'PhysicalActivityCtrl'
+        }
+      }
+    })
+
+    .state('app.cholesterol ', {
+      url: '/cholesterol',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/cholesterol.html',
+          controller: 'CholesterolCtrl'
+        }
+      }
+    })
+
+    .state('app.allergies', {
+      url: '/allergies',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/allergies.html',
+          controller: 'AllergiesCtrl'
+        }
+      }
+    })
+
+    .state('app.disabilities', {
+      url: '/disabilities',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/disabilities.html',
+          controller: 'DisabilitiesCtrl'
+        }
+      }
+    })
+
+    .state('app.symptomreports', {
+      url: '/symptomreports',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/symptomreports.html',
+          controller: 'SymptomReportsCtrl'
+        }
+      }
+    })
+
+    .state('app.vaccinations', {
+      url: '/vaccinations',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/vaccinations.html',
+          controller: 'VaccinationsCtrl'
+        }
+      }
+    })
+
+    .state('app.diseases', {
+      url: '/diseases',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/diseases.html',
+          controller: 'DiseasesCtrl'
+        }
+      }
+    })
+
+    .state('app.diet', {
+      url: '/diet',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/diet.html',
+          controller: 'DietCtrl'
+        }
+      }
+    })
+
+    .state('app.smoking', {
+      url: '/smoking',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/smoking.html',
+          controller: 'SmokingCtrl'
+        }
+      }
+    })
+
+    .state('app.alcohol', {
+      url: '/alcohol',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/alcohol.html',
+          controller: 'AlcoholCtrl'
+        }
+      }
+    })
+
+    .state('app.diagnoses', {
+      url: '/diagnoses',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/diagnoses.html',
+          controller: 'DiagnosesCtrl'
+        }
+      }
+    })
+
+
+    .state('app.doctorvisits', {
+      url: '/doctorvisits',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/doctorvisits.html',
+          controller: 'DoctorVisitsCtrl'
+        }
+      }
+    })
+
+    .state('app.referrals', {
+      url: '/referrals',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/referrals.html',
+          controller: 'ReferralsCtrl'
+        }
+      }
+    })
+
+    .state('app.hospitalisations', {
+      url: '/hospitalisations',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/hospitalisations.html',
+          controller: 'HospitalisationsCtrl'
+        }
+      }
+    })
+
+    .state('app.medication', {
+      url: '/medication',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/medication.html',
+          controller: 'MedicationCtrl'
+        }
+      }
+    })
+
+    .state('app.surgeries', {
+      url: '/surgeries',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/surgeries.html',
+          controller: 'SurgeriesCtrl'
         }
       }
     })
