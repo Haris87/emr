@@ -138,7 +138,7 @@ angular.module('starter.controllers', [])
     }).then(function(response) {
       $scope.getProfile();
       setTimeout(function () {
-        //window.location.reload();
+        window.location.reload();
       }, 1);
       $scope.output = response;
     }).catch(function (err) {
@@ -154,6 +154,20 @@ angular.module('starter.controllers', [])
       }
     });
   }
+
+  $scope.getProfilePic = function(){
+    db.getAttachment('profile', 'pic.jpg')
+    .then(function (blob) {
+      var url = URL.createObjectURL(blob);
+      console.log(url);
+      $scope.profilePic = url;
+      $rootScope.$apply();
+    }).catch(function (err) {
+      console.log(err);
+    });
+  }
+  $scope.getProfilePic();
+
 
   $scope.getProfile = function(){
     var id = "profile";
