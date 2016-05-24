@@ -39,7 +39,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('DashboardCtrl', function($scope, $stateParams, $state) {
+.controller('DashboardCtrl', function($scope, $rootScope, $stateParams, $state) {
   var db = new PouchDB('emr');
 
   //chart.js
@@ -51,13 +51,27 @@ angular.module('starter.controllers', [])
     [28, 48, 40, 19, 86, 27, 90]
   ];
 
+  $scope.getProfilePic = function(){
+    db.getAttachment('profile', 'pic.jpg')
+    .then(function (blob) {
+      var url = URL.createObjectURL(blob);
+      console.log(url);
+      $scope.profilePic = url;
+      $rootScope.$apply();
+    }).catch(function (err) {
+      console.log(err);
+    });
+  }
+  $scope.getProfilePic();
+
+
   $scope.onClick = function (points, evt) {
     console.log(points, evt);
   };
 
   $scope.getProfile = function(){
     var id = "profile";
-    db.get(id).then(function (doc) {
+    db.get(id, [{attachments: true}]).then(function (doc) {
       $scope.editable = false;
       $scope.patient = doc.profile;
       console.log(doc);
@@ -106,16 +120,25 @@ angular.module('starter.controllers', [])
 
   $scope.insertProfile = function(patient){
 
+    var input = document.getElementById('pic_upload');
+    var file = input.files[0];
+
     db.get(id).then(function(doc) {
       return db.put({
         _id: id,
         _rev: doc._rev,
+        _attachments: {
+          'pic.jpg': {
+            data: file,
+            content_type: file.type
+          }
+        },
         profile: patient
-      });
+      });//return db.getAttachment(id, 'pic.jpg');
     }).then(function(response) {
       $scope.getProfile();
       setTimeout(function () {
-        window.location.reload();
+        //window.location.reload();
       }, 1);
       $scope.output = response;
     }).catch(function (err) {
@@ -138,7 +161,6 @@ angular.module('starter.controllers', [])
       $scope.editable = false;
       $scope.patient = doc.profile;
       console.log(doc);
-      console.log($scope.editable);
       $scope.$broadcast('scroll.refreshComplete');
       $scope.output = doc;
     }).catch(function (err) {

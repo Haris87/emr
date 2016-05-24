@@ -4,6 +4,9 @@
     <h1>Profile</h1>
     <div class="list" ng-show="!editable">
       <a class="item" href="#">
+        <img src="{{patient.pic}}"/>
+      </a>
+      <a class="item" href="#">
         Firstname: {{patient.firstname}}
       </a>
       <a class="item" href="#">
@@ -37,6 +40,12 @@
 
     <div class="list" ng-show="editable">
       <form>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label pull-left">Upload your photo</span>
+          <span class="pull-right">
+            <input id="pic_upload" type="file" ng-model="patient.pic">
+          </span>
+        </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">First Name</span>
           <input ng-model="patient.firstname" type="text" placeholder="First Name">

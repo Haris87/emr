@@ -20,6 +20,22 @@ label, p, span, input {
   background-color: #2B3643 !important;
 }
 
+.round {
+    margin:auto;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 250px;
+    height: 250px;
+}
+
+.round img {
+    display: block;
+    width: 250px;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+}
+
 .sideMenuColor {
   background-color: #364150 !important; /* This sets the background color*/
  }
