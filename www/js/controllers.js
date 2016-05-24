@@ -42,6 +42,38 @@ angular.module('starter.controllers', [])
 .controller('DashboardCtrl', function($scope, $stateParams, $state) {
   var db = new PouchDB('emr');
 
+  //chart.js
+  $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+  $scope.series = ['Series A', 'Series B'];
+  $scope.options = {showTooltips: true};
+  $scope.chartdata = [
+    [65, 59, 80, 81, 56, 55, 40],
+    [28, 48, 40, 19, 86, 27, 90]
+  ];
+
+  $scope.onClick = function (points, evt) {
+    console.log(points, evt);
+  };
+
+  $scope.getProfile = function(){
+    var id = "profile";
+    db.get(id).then(function (doc) {
+      $scope.editable = false;
+      $scope.patient = doc.profile;
+      console.log(doc);
+      console.log($scope.patient);
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.output = doc;
+    }).catch(function (err) {
+      $scope.editable = true;
+      $scope.$broadcast('scroll.refreshComplete');
+      console.log(err);
+    });
+  }
+
+  $scope.getProfile();
+
+
   $scope.showAllDocs = function(){
     db.allDocs({
       include_docs: true,

@@ -2,9 +2,331 @@
   <ion-content>
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="showAllDocs()"></ion-refresher>
     <h1>Dashboard</h1>
-    <pre>{{output | json}}</pre>
-    <button class="button button-full button-assertive" ng-click="deleteDb()">
-      Delete Database
-    </button>
+    <div class="row responsive-sm">
+      <a class="item item-avatar" href="#">
+        <img src="venkman.jpg">
+        <h2>{{patient.firstname}} {{patient.lastname}}</h2>
+        <p>{{}}</p>
+      </a>
+    </div>
+    <!-- chart.js -->
+    <div class="row">
+      <h2>Health Measurements</h2>
+    </div>
+    <div class="row responsive-sm">
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Weight
+            </div>
+            <div class="item item-text-wrap">
+              <canvas id="line" class="chart chart-line"
+                      chart-data="chartdata"
+                      chart-labels="labels"
+                      chart-legend="true"
+                      chart-series="series"
+                      options="options">
+              </canvas>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/weight">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                BMI
+            </div>
+            <div class="item item-text-wrap">
+              <canvas id="line" class="chart chart-line"
+                      chart-data="chartdata"
+                      chart-labels="labels"
+                      chart-legend="true"
+                      chart-series="series"
+                      options="options">
+              </canvas>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/weight">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row responsive-sm">
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Blood Sugar
+            </div>
+            <div class="item item-text-wrap">
+              <canvas id="line" class="chart chart-line"
+                      chart-data="chartdata"
+                      chart-labels="labels"
+                      chart-legend="true"
+                      chart-series="series"
+                      options="options">
+              </canvas>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/bloodsugar">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Cholesterol
+            </div>
+            <div class="item item-text-wrap">
+              <canvas id="line" class="chart chart-line"
+                      chart-data="chartdata"
+                      chart-labels="labels"
+                      chart-legend="true"
+                      chart-series="series"
+                      options="options">
+              </canvas>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/cholesterol">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row responsive-sm">
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Physical Activity
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/physicalactivity">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+      <h2>Medical Hsitory</h2>
+    </div>
+    <div class="row responsive-sm">
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Allergies
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/allergies">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Disabilities
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/disabilities">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row responsive-sm">
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Symptom Reports
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/symptomreports">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Vaccinations
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/vaccinations">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row responsive-sm">
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Diseases
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/diseases">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+      <h2>Habits</h2>
+    </div>
+    <div class="row responsive-sm">
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Diet
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/diet">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Smoking
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/smoking">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Alcohol
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/alcohol">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+      <h2>Health Professionals</h2>
+    </div>
+    <div class="row responsive-sm">
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Diagnoses
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/diagnoses">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Doctor Visits
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/doctorvisits">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row responsive-sm">
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Referrals
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/referrals">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                hospitalisations
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/hospitalisations">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row responsive-sm">
+      <div class="col">
+        <div class="card">
+            <div class="item item-divider">
+                Medication
+            </div>
+            <div class="item item-text-wrap">
+              <p>Text text</p>
+              <p class="pull-right">
+                <a class="button button-clear button-positive" ng-href="/#/app/medication">View detailed data <i class="icon ion-ios-arrow-thin-right"></i></a>
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+
+
+    <div class="row responsive-sm">
+      <div class="col">
+        <div class="card">
+          <div class="item item-divider">
+              DB contents
+          </div>
+          <pre>{{output | json}}</pre>
+          <button class="button button-full button-assertive" ng-click="deleteDb()">
+            Delete Database
+          </button>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
   </ion-content>
 </ion-view>
