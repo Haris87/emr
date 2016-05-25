@@ -11,6 +11,8 @@ label, p, span, input {
   color:#666 !important;
 }
 
+/*----------------- colors ------------------*/
+
 .textPincloudGreen {
   color:#1CAF9A !important;
 }
@@ -78,10 +80,13 @@ label, p, span, input {
   color: #666 !important;
 }
 
-.incloudLight {
+.pincloudLight {
   background-color: #666 !important;
   border-color: #666 !important;
 }
+
+/*----------------- end colors ------------------*/
+
 
 .textCenter{
   text-align: center;
@@ -98,6 +103,8 @@ label, p, span, input {
   /*margin-bottom:30px;*/
   padding-bottom:30px;
 }
+
+/*----------------- circle profile pic ------------------*/
 
 .img-circle {
   border-radius: 50%;
@@ -129,7 +136,6 @@ label, p, span, input {
   width: 150px;
 }
 
-
 .img-small{
   width: 70px;
   height: 70px;
@@ -139,11 +145,11 @@ label, p, span, input {
   width: 50px;
 }
 
+/*----------------- end circle profile pic ------------------*/
+
 .center{
   margin:auto;
 }
-
-
 
 .sideMenuColor {
   background-color: #364150 !important; /* This sets the background color*/
