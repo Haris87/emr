@@ -11,13 +11,92 @@ label, p, span, input {
   color:#666 !important;
 }
 
+.textPincloudGreen {
+  color:#1CAF9A !important;
+}
+
 .pincloudGreen {
   background-color: #1CAF9A !important;
   border-color: #1CAF9A !important;
 }
 
+.textPincloudGreenAlternative {
+  color:#1caf51 !important;
+}
+
+.pincloudGreenAlternative {
+  background-color:#1caf51 !important;
+  border-color:#1caf51 !important;
+}
+
+.textPincloudRed {
+  color:#af1c31 !important;
+}
+
+.pincloudRed {
+  background-color:#af1c31 !important;
+  border-color:#af1c31 !important;
+}
+
+.textPincloudBlue {
+  color:#1c7baf !important;
+}
+
+.pincloudBlue {
+  background-color:#1c7baf !important;
+  border-color:#1c7baf !important;
+}
+
+.textPincloudYellow {
+  color:#af9a1c !important;
+}
+
+.pincloudYellow {
+  background-color:#af9a1c !important;
+  border-color:#af9a1c !important;
+}
+
+.textPincloudMagenta {
+  color:#9a1caf !important;
+}
+
+.pincloudMagenta {
+  background-color:#9a1caf !important;
+  border-color:#9a1caf !important;
+}
+
+.textPincloudDark {
+  color: #2B3643 !important;
+}
+
 .pincloudDark {
   background-color: #2B3643 !important;
+  border-color: #2B3643 !important;
+}
+
+.textPincloudLight {
+  color: #666 !important;
+}
+
+.incloudLight {
+  background-color: #666 !important;
+  border-color: #666 !important;
+}
+
+.textCenter{
+  text-align: center;
+}
+
+.bg-alternate{
+  background-color:#ddd;
+}
+
+.dash-section{
+  /*background-color:#ddd;*/
+  /*margin-top:30px;*/
+  padding-top:30px;
+  /*margin-bottom:30px;*/
+  padding-bottom:30px;
 }
 
 .img-circle {

@@ -42,6 +42,12 @@ angular.module('starter.controllers', [])
 .controller('DashboardCtrl', function($scope, $rootScope, $stateParams, $state) {
   var db = new PouchDB('emr');
 
+  $scope.loaded = false;
+
+  $scope.goToProfile = function(){
+    $state.go('app.profile');
+  }
+
   //chart.js
   $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
   $scope.series = ['Series A', 'Series B'];
@@ -57,7 +63,6 @@ angular.module('starter.controllers', [])
       var url = URL.createObjectURL(blob);
       console.log(url);
       $scope.profilePic = url;
-      $rootScope.$apply();
     }).catch(function (err) {
       console.log(err);
     });
@@ -77,21 +82,41 @@ angular.module('starter.controllers', [])
       console.log(doc);
       console.log($scope.patient);
       $scope.$broadcast('scroll.refreshComplete');
+      $scope.loaded = true;
       $scope.output = doc;
     }).catch(function (err) {
       $scope.editable = true;
       $scope.$broadcast('scroll.refreshComplete');
+      $scope.loaded = true;
+      console.log(err);
+    });
+  }
+
+  $scope.getHereditary = function(){
+    var id = "hereditary";
+    db.get(id).then(function (doc) {
+      $scope.editable = false;
+      $scope.hereditary = doc.hereditary;
+      console.log(doc);
+      console.log($scope.editable);
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.loaded = true;
+      $scope.output = doc;
+    }).catch(function (err) {
+      $scope.editable = true;
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.loaded = true;
       console.log(err);
     });
   }
 
   $scope.getProfile();
-
+  $scope.getHereditary();
 
   $scope.showAllDocs = function(){
     db.allDocs({
       include_docs: true,
-      attachments: true
+      attachments: false
     }).then(function (result) {
       console.log(result);
       $scope.$broadcast('scroll.refreshComplete');
@@ -124,17 +149,18 @@ angular.module('starter.controllers', [])
     var file = input.files[0];
 
     db.get(id).then(function(doc) {
-      return db.put({
-        _id: id,
-        _rev: doc._rev,
-        _attachments: {
-          'pic.jpg': {
-            data: file,
-            content_type: file.type
-          }
-        },
-        profile: patient
-      });//return db.getAttachment(id, 'pic.jpg');
+      var data = {};
+      if(typeof file == 'undefined'){
+        var data = { _id: id, _rev: doc._rev,  _attachments: doc._attachments, profile: patient };
+      }else{
+        var data = { _id: id, _rev: doc._rev,  _attachments: {
+            'pic.jpg': {
+              data: file,
+              content_type: file.type
+            }
+          }, profile: patient};
+      }
+      return db.put(data);//return db.getAttachment(id, 'pic.jpg');
     }).then(function(response) {
       $scope.getProfile();
       setTimeout(function () {
@@ -145,11 +171,23 @@ angular.module('starter.controllers', [])
       console.log(err);
       if(err.status == 404){
         console.log("inserting profile data...");
-        db.put({
-          _id: id,
-          profile: patient
-        }).then(function(response) {
-          $scope.getProfile();
+        var data = {};
+        if(typeof file == 'undefined'){
+          console.log("no photo");
+          var data = { _id: id, _attachments: doc._attachments, profile: patient };
+        } else {
+          console.log("photo");
+          var data = { _id: id, _attachments: {
+              'pic.jpg': {
+                data: file,
+                content_type: file.type
+              }
+            },profile: patient};
+        }
+
+        db.put(data).then(function(response) {
+          console.log(response);
+          $state.got('app.dashboard');
         });
       }
     });
@@ -161,7 +199,7 @@ angular.module('starter.controllers', [])
       var url = URL.createObjectURL(blob);
       console.log(url);
       $scope.profilePic = url;
-      $rootScope.$apply();
+      //$rootScope.$apply();
     }).catch(function (err) {
       console.log(err);
     });
@@ -174,7 +212,6 @@ angular.module('starter.controllers', [])
     db.get(id).then(function (doc) {
       $scope.editable = false;
       $scope.patient = doc.profile;
-      console.log(doc);
       $scope.$broadcast('scroll.refreshComplete');
       $scope.output = doc;
     }).catch(function (err) {
