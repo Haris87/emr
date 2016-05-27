@@ -39,7 +39,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('DashboardCtrl', function($scope, $rootScope, $stateParams, $state) {
+.controller('DashboardCtrl', function($scope, $rootScope, $stateParams, $state, $ionicPlatform) {
   var db = new PouchDB('emr');
 
   $scope.loaded = false;
