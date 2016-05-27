@@ -342,8 +342,76 @@ angular.module('starter.controllers', [])
   $scope.getHereditary();
 })
 
-.controller('BloodPressureCtrl', function($scope, $stateParams, $location) {
-  console.log($location.path());
+.controller('BloodPressureCtrl', function($scope, $stateParams, $location, $ionicModal) {
+  var db = new PouchDB('emr');
+  var id = "bloodpressure";
+
+  $scope.bloodpressure = {};
+  $scope.bloodpressure.date = new Date().toJSON().slice(0,10);
+
+  $ionicModal.fromTemplateUrl('blood-pressure-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+  // Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
+
+  $scope.getMeasurements = function(){
+    db.get(id).then(function(doc) {
+      for (var key in doc.measurements) {
+        doc.measurements[key].key = key;
+      }
+      $scope.allMeasurements = doc.measurements;
+    });
+  }
+  $scope.getMeasurements();
+
+  $scope.insertBloodPressure = function(bloodpressure){
+
+    db.get(id).then(function(doc) {
+      //return db.remove(doc);
+      console.log(doc);
+      doc.measurements.push(bloodpressure);
+      var data = { _id: id, _rev: doc._rev, measurements: doc.measurements };
+      return db.put(data).then(function(response) {
+        console.log(response);
+        //$state.goto('app.dashboard');
+      });
+    }).then(function(response) {
+      console.log(response);
+    }).catch(function (err) {
+      if(err.status == 404){
+        console.log("creating array for blood pressure...");
+        var data = { _id: id,  measurements: [bloodpressure] };
+        db.put(data).then(function(response) {
+          console.log(response);
+          //$state.goto('app.dashboard');
+        });
+      }
+    });
+
+
+
+  }
+
 })
 
 .controller('BloodSugarCtrl', function($scope, $stateParams, $location) {

@@ -1,5 +1,53 @@
 <ion-view view-title="Blood Pressure">
   <ion-content>
     <h1>Blood Pressure</h1>
+    <button class="button button-icon ion-compose" ng-click="modal.show()"></button>
+    <pre>
+      {{allMeasurements | json}}
+    </pre>
   </ion-content>
 </ion-view>
+
+<script id="blood-pressure-modal.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Blood Pressure Measurement</h1>
+    </ion-header-bar>
+    <ion-content>
+      <form>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">LDL</span>
+          <input ng-model="bloodpressure.ldl" type="number" placeholder="e.g.: 140"></textarea>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">HDL</span>
+          <input ng-model="bloodpressure.hdl" type="number" placeholder="e.g.: 60"></input>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Heart Rate</span>
+          <input ng-model="bloodpressure.heartrate" type="number" placeholder="e.g.: 80"></input>
+        </label>
+        <label class="item item-toggle item-stacked-label">
+          Arrythmia
+          <label class="toggle toggle-assertive">
+            <input style="" value="on" class="ng-untouched ng-valid ng-dirty ng-valid-parse" ng-model="bloodpressure.arrythmia" type="checkbox">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Date of Measurement</span>
+          <input ng-model="bloodpressure.date" type="text" placeholder="e.g.: 31/12/2015"></input>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Comments</span>
+          <textarea ng-model="bloodpressure.comments" type="text" placeholder="Comments..."></textarea>
+        </label>
+        <button class="button button-full button-balanced" ng-click="insertBloodPressure(bloodpressure)">
+          Save
+        </button>
+      </form>
+    </ion-content>
+  </ion-modal-view>
+</script>
