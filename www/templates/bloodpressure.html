@@ -2,8 +2,57 @@
   <ion-content>
     <h1>Blood Pressure</h1>
     <button class="button button-icon ion-compose" ng-click="modal.show()"></button>
+    <button class="button button-icon ion-refresh" ng-click="getMeasurements()"></button>
+
+    <ul class="timeline">
+      <li ng-repeat="measure in allMeasurements | orderBy: 'diastolic' ">
+        <div class="timeline-thumb bg-color-{{measure.color}} timeline-icon">
+          <i class="ion-waterdrop"></i>
+        </div>
+        <div class="timeline-item">
+          <h4>{{measure.date | date:'mediumDate'}}</h4>
+          <div class="timeline-stats">
+            <span class="measurement">Systolic: {{measure.systolic}}</span>
+            <span class="measurement">Diastolic: {{measure.diastolic}} </span>
+            <span class="measurement">Heart Rate: {{measure.heartrate}}</span>
+            <span class="measurement">Arrythmia: {{measure.arrythmia}}</span>
+            <p class="col-90">{{measure.comments}}</p>
+            <span class="pos-absolute-right"><i class="icon ion-clock"></i> <span am-time-ago="measure.date"></span></span>
+          </div>
+          <br/>
+
+        </div>
+      </li>
+    </ul>
+    <div class="divider-title">October 25, 2016</div>
+    <ul class="timeline">
+      <li>
+        <img src="http://lorempixel.com/people/400/400/" alt="" class="timeline-thumb">
+        <div class="timeline-item">
+          <h4>Colors</h4>
+          <p>
+            <i class="ion-ios-circle-filled icon-size-lg color-red"></i>
+            <i class="ion-ios-circle-filled icon-size-lg color-yellow"></i>
+            <i class="ion-ios-circle-filled icon-size-lg color-orange"></i>
+            <i class="ion-ios-circle-filled icon-size-lg color-blue"></i>
+            <i class="ion-ios-circle-filled icon-size-lg color-lightblue"></i>
+            <i class="ion-ios-circle-filled icon-size-lg color-bluegray"></i>
+            <i class="ion-ios-circle-filled icon-size-lg color-black"></i>
+            <i class="ion-ios-circle-filled icon-size-lg color-green"></i>
+          </p>
+          <div class="timeline-stats">
+            <i class="ion-heart"></i> 2,450
+            <span class="pos-absolute-right"><i class="ion-ios-clock"></i> 2 mins ago</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+
+
     <pre>
       {{allMeasurements | json}}
+
     </pre>
   </ion-content>
 </ion-view>
@@ -16,12 +65,12 @@
     <ion-content>
       <form>
         <label class="item item-input item-stacked-label">
-          <span class="input-label">LDL</span>
-          <input ng-model="bloodpressure.ldl" type="number" placeholder="e.g.: 140"></textarea>
+          <span class="input-label">Diastolic</span>
+          <input ng-model="bloodpressure.diastolic" type="number" placeholder="e.g.: 140"></textarea>
         </label>
         <label class="item item-input item-stacked-label">
-          <span class="input-label">HDL</span>
-          <input ng-model="bloodpressure.hdl" type="number" placeholder="e.g.: 60"></input>
+          <span class="input-label">Systolic</span>
+          <input ng-model="bloodpressure.systolic" type="number" placeholder="e.g.: 60"></input>
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Heart Rate</span>

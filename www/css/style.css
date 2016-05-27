@@ -202,3 +202,9 @@ label, p, span, input {
   float:right;
 }
 /*--------------- accordion list --------------*/
+
+.measurement {
+  display: block;
+  font-size: 1.2em;
+  color:#333 !important;
+}

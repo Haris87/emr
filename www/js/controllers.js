@@ -347,7 +347,75 @@ angular.module('starter.controllers', [])
   var id = "bloodpressure";
 
   $scope.bloodpressure = {};
-  $scope.bloodpressure.date = new Date().toJSON().slice(0,10);
+  $scope.bloodpressure.date = new Date();//.toJSON().slice(0,10);
+
+  $scope.getColor = function(measure){
+    var colors = {low: 'blue', high: 'red', prehigh: 'yellow', default: 'bluegray', ideal: 'green'};
+    var max_hdl = 200;
+    var color = colors.default;
+
+    if(measure.diastolic <= 90 && measure.systolic <= 60){
+      color = colors.low;
+    } else if (measure.diastolic <= 120 && measure.systolic <= 80){
+      color = colors.ideal;
+    } else if (measure.diastolic <= 140 && measure.systolic <= 90){
+      color = colors.prehigh;
+    } else if (measure.diastolic <= 190 && measure.systolic <= 100){
+      color = colors.high;
+
+    } else {
+      if(measure.diastolic > 140 || measure.systolic > 90 ){
+        color = colors.high;
+      }
+
+      if(measure.diastolic < 90 || measure.systolic < 60){
+        color = colors.low;
+      }
+    }
+
+    console.log(colors[id]);
+    return color;
+  }
+
+  $scope.getMeasurements = function(){
+    db.get(id).then(function(doc) {
+      for (var key in doc.measurements) {
+        doc.measurements[key].key = key;
+      }
+
+      for(var i=0; i<doc.measurements.length; i++){
+        doc.measurements[i].color = $scope.getColor(doc.measurements[i]);
+      }
+
+      $scope.allMeasurements = doc.measurements;
+    });
+  }
+  $scope.getMeasurements();
+
+  $scope.insertBloodPressure = function(bloodpressure){
+    bloodpressure.date = new Date(bloodpressure.date);
+    db.get(id).then(function(doc) {
+      //return db.remove(doc);
+      console.log(doc);
+      doc.measurements.push(bloodpressure);
+      var data = { _id: id, _rev: doc._rev, measurements: doc.measurements };
+      return db.put(data).then(function(response) {
+        console.log(response);
+        //$state.goto('app.dashboard');
+      });
+    }).then(function(response) {
+      console.log(response);
+    }).catch(function (err) {
+      if(err.status == 404){
+        console.log("creating array for blood pressure...");
+        var data = { _id: id,  measurements: [bloodpressure] };
+        db.put(data).then(function(response) {
+          console.log(response);
+          //$state.goto('app.dashboard');
+        });
+      }
+    });
+  }
 
   $ionicModal.fromTemplateUrl('blood-pressure-modal.html', {
     scope: $scope,
@@ -374,43 +442,6 @@ angular.module('starter.controllers', [])
     // Execute action
   });
 
-  $scope.getMeasurements = function(){
-    db.get(id).then(function(doc) {
-      for (var key in doc.measurements) {
-        doc.measurements[key].key = key;
-      }
-      $scope.allMeasurements = doc.measurements;
-    });
-  }
-  $scope.getMeasurements();
-
-  $scope.insertBloodPressure = function(bloodpressure){
-
-    db.get(id).then(function(doc) {
-      //return db.remove(doc);
-      console.log(doc);
-      doc.measurements.push(bloodpressure);
-      var data = { _id: id, _rev: doc._rev, measurements: doc.measurements };
-      return db.put(data).then(function(response) {
-        console.log(response);
-        //$state.goto('app.dashboard');
-      });
-    }).then(function(response) {
-      console.log(response);
-    }).catch(function (err) {
-      if(err.status == 404){
-        console.log("creating array for blood pressure...");
-        var data = { _id: id,  measurements: [bloodpressure] };
-        db.put(data).then(function(response) {
-          console.log(response);
-          //$state.goto('app.dashboard');
-        });
-      }
-    });
-
-
-
-  }
 
 })
 
@@ -485,4 +516,5 @@ angular.module('starter.controllers', [])
 .controller('SurgeriesCtrl', function($scope, $stateParams, $location) {
   console.log($location.path());
 })
+
 ;
