@@ -346,6 +346,10 @@ angular.module('starter.controllers', [])
   var db = new PouchDB('emr');
   var id = "bloodpressure";
 
+  $scope.increaseLimit = function(){
+    $scope.limit += $scope.limit;
+  }
+
   $scope.bloodpressure = {};
   $scope.bloodpressure.date = new Date();//.toJSON().slice(0,10);
 
@@ -362,7 +366,6 @@ angular.module('starter.controllers', [])
       color = colors.prehigh;
     } else if (measure.diastolic <= 190 && measure.systolic <= 100){
       color = colors.high;
-
     } else {
       if(measure.diastolic > 140 || measure.systolic > 90 ){
         color = colors.high;
@@ -373,11 +376,13 @@ angular.module('starter.controllers', [])
       }
     }
 
-    console.log(colors[id]);
     return color;
   }
 
   $scope.getMeasurements = function(){
+
+    $scope.limit = 5;
+
     db.get(id).then(function(doc) {
       for (var key in doc.measurements) {
         doc.measurements[key].key = key;
@@ -385,9 +390,18 @@ angular.module('starter.controllers', [])
 
       for(var i=0; i<doc.measurements.length; i++){
         doc.measurements[i].color = $scope.getColor(doc.measurements[i]);
+        if(typeof doc.measurements[i].arrythmia == 'undefined'){
+          doc.measurements[i].arrythmia = false;
+        }
       }
 
       $scope.allMeasurements = doc.measurements;
+
+    }).then(function(){
+      $scope.$broadcast('scroll.refreshComplete');
+    }).catch(function(err){
+      console.log(err);
+      $scope.$broadcast('scroll.refreshComplete');
     });
   }
   $scope.getMeasurements();
@@ -401,10 +415,12 @@ angular.module('starter.controllers', [])
       var data = { _id: id, _rev: doc._rev, measurements: doc.measurements };
       return db.put(data).then(function(response) {
         console.log(response);
+        $scope.closeModal();
         //$state.goto('app.dashboard');
       });
     }).then(function(response) {
       console.log(response);
+      $scope.closeModal();
     }).catch(function (err) {
       if(err.status == 404){
         console.log("creating array for blood pressure...");
@@ -413,6 +429,7 @@ angular.module('starter.controllers', [])
           console.log(response);
           //$state.goto('app.dashboard');
         });
+        $scope.closeModal();
       }
     });
   }
@@ -428,20 +445,12 @@ angular.module('starter.controllers', [])
   };
   $scope.closeModal = function() {
     $scope.modal.hide();
+    $scope.getMeasurements();
   };
   // Cleanup the modal when we're done with it!
   $scope.$on('$destroy', function() {
     $scope.modal.remove();
   });
-  // Execute action on hide modal
-  $scope.$on('modal.hidden', function() {
-    // Execute action
-  });
-  // Execute action on remove modal
-  $scope.$on('modal.removed', function() {
-    // Execute action
-  });
-
 
 })
 

@@ -13,6 +13,15 @@ label, p, span, input {
 
 /*----------------- colors ------------------*/
 
+.textPincloudWhite {
+  color:#fff !important;
+}
+
+.pincloudWhite {
+  background-color: #fff !important;
+  border-color: #fff !important;
+}
+
 .textPincloudGreen {
   color:#1CAF9A !important;
 }
@@ -143,6 +152,7 @@ label, p, span, input {
 /*----------------- end circle profile pic ------------------*/
 
 .center{
+  display: block;
   margin:auto;
 }
 

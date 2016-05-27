@@ -1,13 +1,14 @@
 <ion-view view-title="Blood Pressure">
-  <ion-content>
-    <h1>Blood Pressure</h1>
-    <button class="button button-icon ion-compose" ng-click="modal.show()"></button>
-    <button class="button button-icon ion-refresh" ng-click="getMeasurements()"></button>
+  <div class="bar bar-footer pincloudGreen textPincloudWhite" ng-click="modal.show()">
 
+    <div class="title"><i class="ion-compose"></i> New measurement</div>
+  </div>
+  <ion-content>
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="getMeasurements()"></ion-refresher>
     <ul class="timeline">
-      <li ng-repeat="measure in allMeasurements | orderBy: 'diastolic' ">
-        <div class="timeline-thumb bg-color-{{measure.color}} timeline-icon">
-          <i class="ion-waterdrop"></i>
+      <li ng-repeat="measure in allMeasurements | orderBy: 'date' :true | limitTo: limit">
+        <div class="timeline-thumb color-{{measure.color}} bg-color-white timeline-icon">
+          <i class="ion-android-notifications"></i>
         </div>
         <div class="timeline-item">
           <h4>{{measure.date | date:'mediumDate'}}</h4>
@@ -15,16 +16,21 @@
             <span class="measurement">Systolic: {{measure.systolic}}</span>
             <span class="measurement">Diastolic: {{measure.diastolic}} </span>
             <span class="measurement">Heart Rate: {{measure.heartrate}}</span>
-            <span class="measurement">Arrythmia: {{measure.arrythmia}}</span>
+            <span class="measurement">Arrythmia:
+              <i ng-if="measure.arrythmia" class="icon ion-checkmark"></i>
+              <i ng-if="!measure.arrythmia" class="icon ion-close"></i>
+            </span>
             <p class="col-90">{{measure.comments}}</p>
             <span class="pos-absolute-right"><i class="icon ion-clock"></i> <span am-time-ago="measure.date"></span></span>
           </div>
           <br/>
-
         </div>
       </li>
     </ul>
-    <div class="divider-title">October 25, 2016</div>
+    <div class="center" style="padding-top:20px;padding-bottom:20px;">
+      <button class="button button-outline button-positive center" ng-if="limit <= allMeasurements.length" ng-click="increaseLimit()">Load more...</button>
+    </div>
+    <!-- <div class="divider-title">October 25, 2016</div>
     <ul class="timeline">
       <li>
         <img src="http://lorempixel.com/people/400/400/" alt="" class="timeline-thumb">
@@ -46,7 +52,7 @@
           </div>
         </div>
       </li>
-    </ul>
+    </ul> -->
 
 
 
@@ -55,6 +61,7 @@
 
     </pre>
   </ion-content>
+
 </ion-view>
 
 <script id="blood-pressure-modal.html" type="text/ng-template">
@@ -95,6 +102,9 @@
         </label>
         <button class="button button-full button-balanced" ng-click="insertBloodPressure(bloodpressure)">
           Save
+        </button>
+        <button class="button button-full button-assertive" ng-click="closeModal()">
+          Close
         </button>
       </form>
     </ion-content>

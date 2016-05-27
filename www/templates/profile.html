@@ -36,7 +36,7 @@
       <a class="item" href="#">
         Organ Donor: {{patient.organdonor}}
       </a>
-      <button class="button button-full button-balanced" ng-click="editable = !editable">
+      <button class="button button-full button-energized" ng-click="editable = !editable">
         Edit
       </button>
     </div>
@@ -112,9 +112,11 @@
           </label>
         </label>
 
-
         <button class="button button-full button-balanced" ng-click="insertProfile(patient)">
           Save
+        </button>
+        <button class="button button-full button-assertive" ng-click="editable = !editable">
+          Cancel
         </button>
       </form>
     </div>
