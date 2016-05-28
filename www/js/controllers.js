@@ -40,7 +40,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('DashboardCtrl', function($scope, $rootScope, $stateParams, $state, $ionicPlatform) {
-  var db = new PouchDB('emr');
+  var db = new PouchDB('emr', {auto_compaction: true});
 
   $scope.loaded = false;
 
@@ -204,7 +204,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ProfileCtrl', function($scope, $stateParams, $state) {
-  var db = new PouchDB('emr');
+  var db = new PouchDB('emr', {auto_compaction: true});
   var id = "profile";
   $scope.editable = false;
   $scope.patient = {};
@@ -291,7 +291,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('FamilyCtrl', function($scope, $stateParams) {
-  var db = new PouchDB('emr');
+  var db = new PouchDB('emr', {auto_compaction: true});
   var id = "hereditary";
   $scope.editable = false;
   $scope.hereditary = {};
@@ -343,7 +343,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('BloodPressureCtrl', function($scope, $stateParams, $location, $ionicModal) {
-  var db = new PouchDB('emr');
+  var db = new PouchDB('emr', {auto_compaction: true});
   var id = "bloodpressure";
 
   $scope.increaseLimit = function(){
@@ -383,54 +383,81 @@ angular.module('starter.controllers', [])
 
     $scope.limit = 5;
 
-    db.get(id).then(function(doc) {
-      for (var key in doc.measurements) {
-        doc.measurements[key].key = key;
-      }
-
-      for(var i=0; i<doc.measurements.length; i++){
-        doc.measurements[i].color = $scope.getColor(doc.measurements[i]);
-        if(typeof doc.measurements[i].arrythmia == 'undefined'){
-          doc.measurements[i].arrythmia = false;
+    db.query('index_bloodpressure/object').then(function (res) {
+      console.log(res);
+      $scope.allMeasurements = [];
+      for(var i=0; i<res.rows.length; i++){
+        var row = res.rows[i].value.doc;
+        row.color = $scope.getColor(row);
+        if(typeof row.arrythmia == 'undefined'){
+          row.arrythmia = false;
         }
-      }
 
-      $scope.allMeasurements = doc.measurements;
-
-    }).then(function(){
+        $scope.allMeasurements.push(row);
+      };
+      console.log($scope.allMeasurements);
+      // db.get(res.rows[0]).then(function(document){
+      //   console.log(document);
+      // });
       $scope.$broadcast('scroll.refreshComplete');
-    }).catch(function(err){
+    }).catch(function (err) {
       console.log(err);
       $scope.$broadcast('scroll.refreshComplete');
     });
   }
   $scope.getMeasurements();
 
+
+  /*--------------- index - mapreducce ---------------*/
+
+  // document that tells PouchDB/CouchDB
+  // to build up an index on doc.name
+  $scope.createIndex = function(){
+
+    var ddoc = {
+      _id: '_design/index_bloodpressure',
+      views: {
+        by_id: {
+          map: function (doc) {
+            if(doc.type == "bloodpressure") {
+                emit(doc.id);
+            }
+          }.toString()
+        },
+        object: {
+          map: function (doc) {
+            if(doc.type == "bloodpressure") {
+                emit(doc.id, {doc: doc});
+            }
+          }.toString()
+        },
+      }
+    };
+
+    // save it
+    db.put(ddoc).then(function () {
+      console.log("index created");
+    }).catch(function (err) {
+      console.log(err);
+    });
+
+  }
+  $scope.createIndex();
+
+  /*--------------- end index - mapreducce ---------------*/
+
   $scope.insertBloodPressure = function(bloodpressure){
     bloodpressure.date = new Date(bloodpressure.date);
-    db.get(id).then(function(doc) {
-      //return db.remove(doc);
-      console.log(doc);
-      doc.measurements.push(bloodpressure);
-      var data = { _id: id, _rev: doc._rev, measurements: doc.measurements };
-      return db.put(data).then(function(response) {
-        console.log(response);
-        $scope.closeModal();
-        //$state.goto('app.dashboard');
-      });
-    }).then(function(response) {
+    bloodpressure.type = "bloodpressure";
+    db.post(bloodpressure).then(function(response) {
       console.log(response);
-      $scope.closeModal();
+
+      db.get(response.id).then(function(doc) {
+        console.log(doc);
+      });
+
     }).catch(function (err) {
-      if(err.status == 404){
-        console.log("creating array for blood pressure...");
-        var data = { _id: id,  measurements: [bloodpressure] };
-        db.put(data).then(function(response) {
-          console.log(response);
-          //$state.goto('app.dashboard');
-        });
-        $scope.closeModal();
-      }
+      console.log(err);
     });
   }
 
