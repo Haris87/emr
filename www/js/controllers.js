@@ -48,6 +48,51 @@ angular.module('starter.controllers', [])
     $state.go('app.profile');
   }
 
+  $scope.replicate = function(){
+
+    var username = "pincloud";
+    var password = "p1ncl00d";
+    var database_name = "emr";
+    var remote_url = "https://"+username+":"+password+"@"+username+".cloudant.com/"+database_name;
+    var localDB = db;
+    var remoteDB = new PouchDB(remote_url);
+    // var rep = PouchDB.replicate('emr', remote_url, {
+    //   live: false,
+    //   retry: false
+    // }).on('change', function (info) {
+    //   // handle change
+    //   console.log(info);
+    // }).on('paused', function (err) {
+    //   // replication paused (e.g. replication up to date, user went offline)
+    //   console.log(err);
+    // }).on('active', function () {
+    //   // replicate resumed (e.g. new changes replicating, user went back online)
+    //   console.log('active');
+    // }).on('denied', function (err) {
+    //   // a document failed to replicate (e.g. due to permissions)
+    //   console.log(err);
+    // }).on('complete', function (info) {
+    //   // handle complete
+    //   console.log(info);
+    // }).on('error', function (err) {
+    //   // handle error
+    //   console.log(err);
+    // });
+
+    localDB.sync(remoteDB, {
+      live: true
+    }).on('change', function (change) {
+      // yo, something changed!
+      console.log("auto sync, changed");
+      console.log(change);
+    }).on('error', function (err) {
+      console.log("auto sync, error");
+      console.log(err);
+      // yo, we got an error! (maybe the user went offline?)
+    });
+
+  }
+
   //chart.js
   $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
   $scope.series = ['Series A', 'Series B'];
