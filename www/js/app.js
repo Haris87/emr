@@ -22,7 +22,16 @@ angular.module('starter', ['ionic', 'chart.js', 'starter.controllers', 'ngCordov
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.views.maxCache(3);
+  //$ionicConfigProvider.scrolling.jsScrolling(false);
+
+  if( ionic.Platform.isAndroid() ) {
+    $ionicConfigProvider.scrolling.jsScrolling(false);
+  }
+
+
+
   $stateProvider
 
   .state('app', {

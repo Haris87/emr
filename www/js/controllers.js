@@ -48,6 +48,8 @@ angular.module('starter.controllers', [])
     $state.go('app.profile');
   }
 
+  $scope.debug = [];
+
   $scope.replicate = function(){
 
     var username = "pincloud";
@@ -56,40 +58,53 @@ angular.module('starter.controllers', [])
     var remote_url = "https://"+username+":"+password+"@"+username+".cloudant.com/"+database_name;
     var localDB = db;
     var remoteDB = new PouchDB(remote_url);
-    // var rep = PouchDB.replicate('emr', remote_url, {
-    //   live: false,
-    //   retry: false
-    // }).on('change', function (info) {
-    //   // handle change
-    //   console.log(info);
-    // }).on('paused', function (err) {
-    //   // replication paused (e.g. replication up to date, user went offline)
-    //   console.log(err);
-    // }).on('active', function () {
-    //   // replicate resumed (e.g. new changes replicating, user went back online)
-    //   console.log('active');
-    // }).on('denied', function (err) {
-    //   // a document failed to replicate (e.g. due to permissions)
-    //   console.log(err);
-    // }).on('complete', function (info) {
-    //   // handle complete
-    //   console.log(info);
-    // }).on('error', function (err) {
-    //   // handle error
-    //   console.log(err);
-    // });
 
-    localDB.sync(remoteDB, {
-      live: true
-    }).on('change', function (change) {
-      // yo, something changed!
-      console.log("auto sync, changed");
-      console.log(change);
-    }).on('error', function (err) {
-      console.log("auto sync, error");
+    var rep = PouchDB.replicate(remote_url, 'emr', {
+      live: false,
+      retry: false
+    }).on('change', function (info) {
+      // handle change
+      alert("change");
+      $scope.debug.push("info");
+      console.log(info);
+    }).on('paused', function (err) {
+      // replication paused (e.g. replication up to date, user went offline)
+      alert("paused");
+      $scope.debug.push("err");
       console.log(err);
-      // yo, we got an error! (maybe the user went offline?)
+    }).on('active', function () {
+      // replicate resumed (e.g. new changes replicating, user went back online)
+      alert("active");
+      $scope.debug.push("active");
+      console.log('active');
+    }).on('denied', function (err) {
+      // a document failed to replicate (e.g. due to permissions)
+      alert("denied");
+      $scope.debug.push("err");
+      console.log(err);
+    }).on('complete', function (info) {
+      // handle complete
+      alert("complete");
+      $scope.debug.push("info");
+      console.log(info);
+    }).on('error', function (err) {
+      // handle error
+      alert("error");
+      $scope.debug.push("err");
+      console.log(err);
     });
+
+    // localDB.sync(remoteDB, {
+    //   live: true
+    // }).on('change', function (change) {
+    //   // yo, something changed!
+    //   alert("auto sync, changed");
+    //   $scope.debug = change;
+    // }).on('error', function (err) {
+    //   alert("auto sync, error");
+    //   $scope.debug = err;
+    //   // yo, we got an error! (maybe the user went offline?)
+    // });
 
   }
 
