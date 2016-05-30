@@ -3,6 +3,7 @@
 ### Plugins to add
 ```
 ionic plugin add org.apache.cordova.inappbrowser
+cordova plugin add cordova-plugin-network-information
 ```
 
 ### Speed enhancement

@@ -1,6 +1,36 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, DB) {
+.controller('AppCtrl', function($scope, $rootScope, $ionicModal, $timeout, $state, $cordovaNetwork, DB) {
+
+  ionic.Platform.ready(function(){
+
+    if(ionic.Platform.isAndroid()) {
+      $scope.network = $cordovaNetwork.getNetwork();
+      $scope.isOnline = $cordovaNetwork.isOnline();
+      $scope.$apply();
+
+      // listen for Online event
+      $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+          $scope.isOnline = true;
+          $scope.network = $cordovaNetwork.getNetwork();
+
+          $scope.$apply();
+      });
+
+      // listen for Offline event
+      $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+          console.log("got offline");
+          $scope.isOnline = false;
+          $scope.network = $cordovaNetwork.getNetwork();
+
+          $scope.$apply();
+      });
+    } else {
+      $scope.isOnline = true;
+    }
+
+
+  });
 
   $scope.replicationIcon = '';
 

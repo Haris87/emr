@@ -19,6 +19,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services',  
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    // window.addEventListener("online", function(e) {
+    //   console.log('online');
+    // }, false);
+    //
+    // window.addEventListener("offline", function(e) {
+    //   console.log('offline');
+    // }, false);
+
   });
 })
 
