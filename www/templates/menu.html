@@ -8,6 +8,31 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
+
+      <ion-nav-buttons side="right">
+        <div ng-switch="replicationIcon">
+          <div ng-switch-when="download">
+            <button class="button button-clear">
+              <i class="icon ion-ios-cloud-download"></i>
+            </button>
+          </div>
+          <div ng-switch-when="upload">
+            <button class="button button-clear">
+              <i class="icon ion-ios-cloud-upload"></i>
+            </button>
+          </div>
+          <div ng-switch-when="pause">
+            <button ng-click="replicateToLocal()" class="button button-clear">
+              <i class="icon ion-ios-cloud"></i>
+            </button>
+          </div>
+          <div ng-switch-default>
+            <button ng-click="replicateToLocal()" class="button button-clear">
+              <i class="icon ion-ios-cloud-outline"></i>
+            </button>
+          </div>
+        </div>
+      </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>

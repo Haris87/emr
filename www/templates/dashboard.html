@@ -1,16 +1,8 @@
 <ion-view cache-view="false" view-title="Dashboard">
   <ion-content>
-    <ion-refresher pulling-text="Pull to refresh..." on-refresh="showAllDocs()"></ion-refresher>
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="refresh()"></ion-refresher>
 
     <div class="dash-section">
-      <div class="row">
-        <button class="button button-large button-positive button-outline center" ng-click="replicate()"><i class="icon ion-copy"></i> Replicate DB</button>
-      </div>
-
-      <div class="row">
-        <pre class="center">{{debug | json}}</pre>
-      </div>
-
       <div class="row responsive-sm">
         <div class="col col-33" style="margin-right:20px;min-width:260px;" ng-if="patient == null && loaded">
           <a class="button button-large button-positive button-outline center" href="#/app/profile"><i class="icon ion-person"></i> Fill profile info</a>
@@ -70,7 +62,7 @@
       </div>
     </div>
     <!-- chart.js -->
-    <div class="dash-section bg-alternate">
+    <div class="dash-section bg-alternate" ng-hide="true">
       <div class="row">
         <h2>Health Measurements</h2>
       </div>

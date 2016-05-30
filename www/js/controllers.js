@@ -1,6 +1,71 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, DB) {
+
+  $scope.replicationIcon = '';
+
+  var db = DB.info();
+  var remoteDB = db.remoteDB;
+  var localDB = db.localDB;
+
+  $scope.replicateToRemote = function(){
+    $scope.replicationIcon = 'upload';
+    var rep = PouchDB.replicate(localDB, remoteDB, {
+      live: true,
+      retry: true
+    }).on('change', function (info) {
+      // handle change
+      $scope.replicationIcon = 'upload';
+    }).on('paused', function (err) {
+      // replication paused (e.g. replication up to date, user went offline)
+      $scope.replicationIcon = 'pause';
+    }).on('active', function () {
+      // replicate resumed (e.g. new changes replicating, user went back online)
+      $scope.replicationIcon = 'upload';
+    }).on('denied', function (err) {
+      // a document failed to replicate (e.g. due to permissions)
+      $scope.replicationIcon = '';
+    }).on('complete', function (info) {
+      // handle complete
+      $scope.replicationIcon = '';
+    }).on('error', function (err) {
+      // handle error
+      $scope.replicationIcon = '';
+      alert("There was an error during data replication. Replication failed.");
+    });
+  }
+
+  $scope.replicateToLocal = function(){
+    $scope.replicationIcon = 'download';
+    var rep = PouchDB.replicate(remoteDB, localDB, {
+      live: true,
+      retry: true
+    }).on('change', function (info) {
+      // handle change
+      $scope.replicationIcon = 'download';
+      $state.go($state.current, {}, {reload: true});
+    }).on('paused', function (err) {
+      // replication paused (e.g. replication up to date, user went offline)
+      $scope.replicationIcon = 'pause';
+    }).on('active', function () {
+      // replicate resumed (e.g. new changes replicating, user went back online)
+      $scope.replicationIcon = 'download';
+    }).on('denied', function (err) {
+      // a document failed to replicate (e.g. due to permissions)
+      $scope.replicationIcon = '';
+    }).on('complete', function (info) {
+      // handle complete
+      $scope.replicationIcon = '';
+      $state.go($state.current, {}, {reload: true});
+    }).on('error', function (err) {
+      // handle error
+      alert("There was an error during data replication. Replication failed.");
+      $scope.replicationIcon = '';
+    });
+  }
+  $scope.replicateToLocal();
+
+
   $scope.loginData = {};
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
@@ -48,65 +113,11 @@ angular.module('starter.controllers', [])
     $state.go('app.profile');
   }
 
-  $scope.debug = [];
-
-  $scope.replicate = function(){
-
-    var username = "pincloud";
-    var password = "p1ncl00d";
-    var database_name = "emr";
-    var remote_url = "https://"+username+":"+password+"@"+username+".cloudant.com/"+database_name;
-    var localDB = db;
-    var remoteDB = new PouchDB(remote_url);
-
-    var rep = PouchDB.replicate(remote_url, 'emr', {
-      live: false,
-      retry: false
-    }).on('change', function (info) {
-      // handle change
-      alert("change");
-      $scope.debug.push("info");
-      console.log(info);
-    }).on('paused', function (err) {
-      // replication paused (e.g. replication up to date, user went offline)
-      alert("paused");
-      $scope.debug.push("err");
-      console.log(err);
-    }).on('active', function () {
-      // replicate resumed (e.g. new changes replicating, user went back online)
-      alert("active");
-      $scope.debug.push("active");
-      console.log('active');
-    }).on('denied', function (err) {
-      // a document failed to replicate (e.g. due to permissions)
-      alert("denied");
-      $scope.debug.push("err");
-      console.log(err);
-    }).on('complete', function (info) {
-      // handle complete
-      alert("complete");
-      $scope.debug.push("info");
-      console.log(info);
-    }).on('error', function (err) {
-      // handle error
-      alert("error");
-      $scope.debug.push("err");
-      console.log(err);
-    });
-
-    // localDB.sync(remoteDB, {
-    //   live: true
-    // }).on('change', function (change) {
-    //   // yo, something changed!
-    //   alert("auto sync, changed");
-    //   $scope.debug = change;
-    // }).on('error', function (err) {
-    //   alert("auto sync, error");
-    //   $scope.debug = err;
-    //   // yo, we got an error! (maybe the user went offline?)
-    // });
-
+  $scope.refresh = function(){
+    $scope.getProfile();
+    $scope.getHereditary();
   }
+
 
   //chart.js
   $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
@@ -117,71 +128,71 @@ angular.module('starter.controllers', [])
     [28, 48, 40, 19, 86, 27, 90]
   ];
 
-  new Morris.Area({
-    element: 'weightChart',
-    data: [
-      { year: '2008', value: 20 },
-      { year: '2009', value: 10 },
-      { year: '2010', value: 5 },
-      { year: '2011', value: 5 },
-      { year: '2012', value: 20 }
-    ],
-    xkey: 'year',
-    ykeys: ['value'],
-    labels: ['Value'],
-    lineColors: ['#60a2c7']
-  });
-
-  new Morris.Area({
-    element: 'BMIChart',
-    data: [
-      { y: "2006", a: 100, b: 90 },
-      { y: "2007", a: 75,  b: 65 },
-      { y: "2008", a: 50,  b: 40 },
-      { y: "2009", a: 75,  b: 65 },
-      { y: "2010", a: 50,  b: 40 },
-      { y: "2011", a: 75,  b: 65 },
-      { y: "2012", a: 100, b: 90 }
-    ],
-    xkey: 'y',
-    ykeys: ['a'],
-    labels: ['Value'],
-    lineColors: ['#c276cf']
-  });
-
-  new Morris.Area({
-    element: 'bloodSugarChart',
-    data: [
-      { y: "2006", a: 100, b: 90 },
-      { y: "2007", a: 75,  b: 65 },
-      { y: "2008", a: 50,  b: 40 },
-      { y: "2009", a: 75,  b: 65 },
-      { y: "2010", a: 50,  b: 40 },
-      { y: "2011", a: 75,  b: 65 },
-      { y: "2012", a: 100, b: 90 }
-    ],
-    xkey: 'y',
-    ykeys: ['a'],
-    labels: ['Value'],
-    lineColors: ['#c7b860']
-  });
-
-  new Morris.Line({
-    element: 'cholesterolChart',
-    data: [
-      { y: '2006', a: 100, b: 90, c: 190},
-      { y: '2007', a: 75,  b: 85, c: 195 },
-      { y: '2008', a: 50,  b: 60, c: 200 },
-      { y: '2009', a: 75,  b: 65, c: 220 },
-      { y: '2010', a: 50,  b: 90, c: 230 },
-      { y: '2011', a: 75,  b: 65, c: 185 },
-      { y: '2012', a: 100, b: 76, c: 190 }
-    ],
-    xkey: 'y',
-    ykeys: ['a', 'b', 'c'],
-    labels: ['HDL', 'LDL', 'TOT'],
-    lineColors: ['#1caf51', '#af1c31', '#af9a1c']
-  });
+  // new Morris.Area({
+  //   element: 'weightChart',
+  //   data: [
+  //     { year: '2008', value: 20 },
+  //     { year: '2009', value: 10 },
+  //     { year: '2010', value: 5 },
+  //     { year: '2011', value: 5 },
+  //     { year: '2012', value: 20 }
+  //   ],
+  //   xkey: 'year',
+  //   ykeys: ['value'],
+  //   labels: ['Value'],
+  //   lineColors: ['#60a2c7']
+  // });
+  //
+  // new Morris.Area({
+  //   element: 'BMIChart',
+  //   data: [
+  //     { y: "2006", a: 100, b: 90 },
+  //     { y: "2007", a: 75,  b: 65 },
+  //     { y: "2008", a: 50,  b: 40 },
+  //     { y: "2009", a: 75,  b: 65 },
+  //     { y: "2010", a: 50,  b: 40 },
+  //     { y: "2011", a: 75,  b: 65 },
+  //     { y: "2012", a: 100, b: 90 }
+  //   ],
+  //   xkey: 'y',
+  //   ykeys: ['a'],
+  //   labels: ['Value'],
+  //   lineColors: ['#c276cf']
+  // });
+  //
+  // new Morris.Area({
+  //   element: 'bloodSugarChart',
+  //   data: [
+  //     { y: "2006", a: 100, b: 90 },
+  //     { y: "2007", a: 75,  b: 65 },
+  //     { y: "2008", a: 50,  b: 40 },
+  //     { y: "2009", a: 75,  b: 65 },
+  //     { y: "2010", a: 50,  b: 40 },
+  //     { y: "2011", a: 75,  b: 65 },
+  //     { y: "2012", a: 100, b: 90 }
+  //   ],
+  //   xkey: 'y',
+  //   ykeys: ['a'],
+  //   labels: ['Value'],
+  //   lineColors: ['#c7b860']
+  // });
+  //
+  // new Morris.Line({
+  //   element: 'cholesterolChart',
+  //   data: [
+  //     { y: '2006', a: 100, b: 90, c: 190},
+  //     { y: '2007', a: 75,  b: 85, c: 195 },
+  //     { y: '2008', a: 50,  b: 60, c: 200 },
+  //     { y: '2009', a: 75,  b: 65, c: 220 },
+  //     { y: '2010', a: 50,  b: 90, c: 230 },
+  //     { y: '2011', a: 75,  b: 65, c: 185 },
+  //     { y: '2012', a: 100, b: 76, c: 190 }
+  //   ],
+  //   xkey: 'y',
+  //   ykeys: ['a', 'b', 'c'],
+  //   labels: ['HDL', 'LDL', 'TOT'],
+  //   lineColors: ['#1caf51', '#af1c31', '#af9a1c']
+  // });
 
   $scope.getProfilePic = function(){
     db.getAttachment('profile', 'pic.jpg')
