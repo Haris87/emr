@@ -9,6 +9,14 @@
   font-size: 40px;
 }
 
+.icon-size-md {
+  font-size: 30px;
+}
+
+.icon-size-sm {
+  font-size: 20px;
+}
+
 /*Timeline*/
 
 .pos-absolute-right {
@@ -27,10 +35,12 @@
     top: 0;
     bottom: 0;
     width: 5px;
-    background: #afdcf8;
+    /*background: #afdcf8;*/
+    background: #CBD0D3;
     left: 44px;
     margin-left: -10px;
-    z-index: 1;
+    /*z-index: 1;*/
+    z-index: -1;
 }
 
 .timeline .timeline-thumb {
@@ -68,7 +78,10 @@
 
 
 .divider-title {
+  margin-top:-2px;
     background: #e4e4e4;
+    font-size:1.1em;
+    line-height: 1.5em;
     padding: 5px 15px;
 }
 

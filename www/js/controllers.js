@@ -266,57 +266,7 @@ angular.module('starter.controllers', [])
   //   labels: ['Value'],
   //   lineColors: ['#60a2c7']
   // });
-  //
-  // new Morris.Area({
-  //   element: 'BMIChart',
-  //   data: [
-  //     { y: "2006", a: 100, b: 90 },
-  //     { y: "2007", a: 75,  b: 65 },
-  //     { y: "2008", a: 50,  b: 40 },
-  //     { y: "2009", a: 75,  b: 65 },
-  //     { y: "2010", a: 50,  b: 40 },
-  //     { y: "2011", a: 75,  b: 65 },
-  //     { y: "2012", a: 100, b: 90 }
-  //   ],
-  //   xkey: 'y',
-  //   ykeys: ['a'],
-  //   labels: ['Value'],
-  //   lineColors: ['#c276cf']
-  // });
-  //
-  // new Morris.Area({
-  //   element: 'bloodSugarChart',
-  //   data: [
-  //     { y: "2006", a: 100, b: 90 },
-  //     { y: "2007", a: 75,  b: 65 },
-  //     { y: "2008", a: 50,  b: 40 },
-  //     { y: "2009", a: 75,  b: 65 },
-  //     { y: "2010", a: 50,  b: 40 },
-  //     { y: "2011", a: 75,  b: 65 },
-  //     { y: "2012", a: 100, b: 90 }
-  //   ],
-  //   xkey: 'y',
-  //   ykeys: ['a'],
-  //   labels: ['Value'],
-  //   lineColors: ['#c7b860']
-  // });
-  //
-  // new Morris.Line({
-  //   element: 'cholesterolChart',
-  //   data: [
-  //     { y: '2006', a: 100, b: 90, c: 190},
-  //     { y: '2007', a: 75,  b: 85, c: 195 },
-  //     { y: '2008', a: 50,  b: 60, c: 200 },
-  //     { y: '2009', a: 75,  b: 65, c: 220 },
-  //     { y: '2010', a: 50,  b: 90, c: 230 },
-  //     { y: '2011', a: 75,  b: 65, c: 185 },
-  //     { y: '2012', a: 100, b: 76, c: 190 }
-  //   ],
-  //   xkey: 'y',
-  //   ykeys: ['a', 'b', 'c'],
-  //   labels: ['HDL', 'LDL', 'TOT'],
-  //   lineColors: ['#1caf51', '#af1c31', '#af9a1c']
-  // });
+
 
   $scope.getProfilePic = function(){
     db.getAttachment('profile', 'pic.jpg')
@@ -583,6 +533,7 @@ angular.module('starter.controllers', [])
       $scope.allMeasurements = [];
       for(var i=0; i<res.rows.length; i++){
         var row = res.rows[i].value.doc;
+        row.id = i;
         row.color = $scope.getColor(row);
         if(typeof row.arrythmia == 'undefined'){
           row.arrythmia = false;

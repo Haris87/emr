@@ -5,10 +5,11 @@
   </div>
   <ion-content>
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="getMeasurements()"></ion-refresher>
+    <div class="divider-title" style="z-index:999;"><i class="icon ion-calendar"></i> Most recent measurements</div>
     <ul class="timeline">
       <li ng-repeat="measure in allMeasurements | orderBy: 'date' :true | limitTo: limit">
-        <div class="timeline-thumb color-{{measure.color}} bg-color-white timeline-icon">
-          <i class="ion-android-notifications"></i>
+        <div class="timeline-thumb bg-color-{{measure.color}} bg-color-white timeline-icon">
+          <i class="icon ion-information"></i>
         </div>
         <div class="timeline-item">
           <h4>{{measure.date | date:'mediumDate'}}</h4>
@@ -25,34 +26,21 @@
           </div>
           <br/>
         </div>
+        <div class="divider-title" ng-if="$index == 3" style="z-index:999;">Older measurements</div>
       </li>
+
     </ul>
+
     <div class="center" style="padding-top:20px;padding-bottom:20px;">
       <button class="button button-outline button-positive center" ng-if="limit <= allMeasurements.length" ng-click="increaseLimit()">Load more...</button>
     </div>
-    <!-- <div class="divider-title">October 25, 2016</div>
-    <ul class="timeline">
-      <li>
-        <img src="http://lorempixel.com/people/400/400/" alt="" class="timeline-thumb">
-        <div class="timeline-item">
-          <h4>Colors</h4>
-          <p>
-            <i class="ion-ios-circle-filled icon-size-lg color-red"></i>
-            <i class="ion-ios-circle-filled icon-size-lg color-yellow"></i>
-            <i class="ion-ios-circle-filled icon-size-lg color-orange"></i>
-            <i class="ion-ios-circle-filled icon-size-lg color-blue"></i>
-            <i class="ion-ios-circle-filled icon-size-lg color-lightblue"></i>
-            <i class="ion-ios-circle-filled icon-size-lg color-bluegray"></i>
-            <i class="ion-ios-circle-filled icon-size-lg color-black"></i>
-            <i class="ion-ios-circle-filled icon-size-lg color-green"></i>
-          </p>
-          <div class="timeline-stats">
-            <i class="ion-heart"></i> 2,450
-            <span class="pos-absolute-right"><i class="ion-ios-clock"></i> 2 mins ago</span>
-          </div>
-        </div>
-      </li>
-    </ul> -->
+    <div class="divider-title">October 25, 2016</div>
+    <p>
+      <div style="vertical-align:middle;display:inline-block;"><i class="ion-ios-circle-filled color-red"></i> <span style="vertical-align:middle;">High blood pressure</span> </div>
+        <div style="vertical-align:middle;display:block;"><i class="ion-ios-circle-filled color-yellow"></i> Pre-high blood pressure </div>
+        <div style="vertical-align:middle;display:block;"><i class="ion-ios-circle-filled color-green"></i> Normal blood pressure </div>
+        <div style="vertical-align:middle;display:block;"><i class="ion-ios-circle-filled color-blue"></i> Low blood pressure </div>
+    </p>
 
 
 

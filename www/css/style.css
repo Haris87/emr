@@ -125,29 +125,32 @@ label, p, span, input {
 /*----------------- circle profile pic ------------------*/
 
 .img-circle-large{
+  border:10px solid #ddd;
   background-repeat: no-repeat;
   border-radius: 50%;
   width: 250px;
   height: 250px;
-  background-color: grey;
+  /*background-color: grey;*/
   overflow: hidden;
 }
 
 .img-circle-medium{
+  border:8px solid #ddd;
   background-repeat: no-repeat;
   border-radius: 50%;
   width: 150px;
   height: 150px;
-  background-color: grey;
+  /*background-color: grey;*/
   overflow: hidden;
 }
 
 .img-circle-small{
+  border:5px solid #ddd;
   background-repeat: no-repeat;
   border-radius: 50%;
   width: 75px;
   height: 75px;
-  background-color: grey;
+  /*background-color: grey;*/
   overflow: hidden;
 }
 
