@@ -46,21 +46,27 @@ angular.module('starter.controllers', [])
     }).on('change', function (info) {
       // handle change
       $scope.replicationIcon = 'upload';
+      $scope.$apply();
     }).on('paused', function (err) {
       // replication paused (e.g. replication up to date, user went offline)
       $scope.replicationIcon = 'pause';
+      $scope.$apply();
     }).on('active', function () {
       // replicate resumed (e.g. new changes replicating, user went back online)
       $scope.replicationIcon = 'upload';
+      $scope.$apply();
     }).on('denied', function (err) {
       // a document failed to replicate (e.g. due to permissions)
       $scope.replicationIcon = '';
+      $scope.$apply();
     }).on('complete', function (info) {
       // handle complete
       $scope.replicationIcon = '';
+      $scope.$apply();
     }).on('error', function (err) {
       // handle error
       $scope.replicationIcon = '';
+      $scope.$apply();
       alert("There was an error during data replication. Replication failed.");
     });
   }
@@ -73,24 +79,30 @@ angular.module('starter.controllers', [])
     }).on('change', function (info) {
       // handle change
       $scope.replicationIcon = 'download';
+      $scope.$apply();
       $state.go($state.current, {}, {reload: true});
     }).on('paused', function (err) {
       // replication paused (e.g. replication up to date, user went offline)
       $scope.replicationIcon = 'pause';
+      $scope.$apply();
     }).on('active', function () {
       // replicate resumed (e.g. new changes replicating, user went back online)
       $scope.replicationIcon = 'download';
+      $scope.$apply();
     }).on('denied', function (err) {
       // a document failed to replicate (e.g. due to permissions)
       $scope.replicationIcon = '';
+      $scope.$apply();
     }).on('complete', function (info) {
       // handle complete
       $scope.replicationIcon = '';
+      $scope.$apply();
       $state.go($state.current, {}, {reload: true});
     }).on('error', function (err) {
       // handle error
       alert("There was an error during data replication. Replication failed.");
       $scope.replicationIcon = '';
+      $scope.$apply();
     });
   }
   $scope.replicateToLocal();

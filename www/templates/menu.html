@@ -11,32 +11,32 @@
 
       <ion-nav-buttons side="right">
         <div ng-switch="isOnline">
-          <button ng-switch-when="true" class="button button-clear">
-            <i class="icon ion-ios-lightbulb"></i>
+          <button ng-switch-when="true" class="button button-clear textPincloudDarkTransparent">
+            <i class="icon ion-wifi"></i> <!-- style="color:#a4c639" -->
           </button>
-          <button ng-switch-when="false" class="button button-clear">
-            <i class="icon ion-ios-lightbulb-outline"></i>
+          <button ng-switch-when="false" class="button button-clear textPincloudDarkTransparent">
+            <i class="icon ion-wifi"></i>
           </button>
         </div>
         <div ng-switch="replicationIcon">
           <div ng-switch-when="download">
             <button class="button button-clear">
-              <i class="icon ion-ios-cloud-download"></i>
+              <i class="icon ion-android-download"></i>
             </button>
           </div>
           <div ng-switch-when="upload">
             <button class="button button-clear">
-              <i class="icon ion-ios-cloud-upload"></i>
+              <i class="icon ion-android-upload"></i>
             </button>
           </div>
           <div ng-switch-when="pause">
             <button ng-click="replicateToLocal()" class="button button-clear">
-              <i class="icon ion-ios-cloud"></i>
+              <i class="icon ion-android-cloud"></i>
             </button>
           </div>
           <div ng-switch-default>
             <button ng-click="replicateToLocal()" class="button button-clear">
-              <i class="icon ion-ios-cloud-outline"></i>
+              <i class="icon ion-android-cloud-outline"></i>
             </button>
           </div>
         </div>

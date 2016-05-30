@@ -85,6 +85,15 @@ label, p, span, input {
   border-color: #2B3643 !important;
 }
 
+.textPincloudDarkTransparent {
+  color: #69829f !important;
+}
+
+.pincloudDarkTransparent {
+  background-color: #69829f !important;
+  border-color: #69829f !important;
+}
+
 .textPincloudLight {
   color: #666 !important;
 }
