@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $rootScope, $ionicModal, $timeout, $state, $cordovaNetwork, DB) {
+.controller('AppCtrl', function($scope, $rootScope, $ionicModal, $timeout, $state, $cordovaNetwork, $ionicActionSheet, DB) {
 
   ionic.Platform.ready(function(){
 
@@ -32,24 +32,74 @@ angular.module('starter.controllers', [])
 
   });
 
+  $scope.cloudSettings = function() {
+
+    ionic.Platform.ready(function(){
+      // Show the action sheet
+      var hideSheet =
+      $ionicActionSheet.show({
+        buttons: [
+          { text: '<i class="icon ion-ios-cloud-upload"></i> Upload to cloud' },
+          { text: '<i class="icon ion-ios-cloud-download"></i> Download from cloud' },
+          { text: '<i class="icon ion-ios-cloud"></i> Toggle live sync' }
+        ],
+        titleText: 'Cloud Settings',
+        cancelText: 'Cancel',
+        cancel: function() {
+          // add cancel code..
+        },
+        buttonClicked: function(index) {
+          // 0 = upload, 1 = download, 2 = toggle sync
+          if(index == 0){
+            $scope.replicateToRemote();
+          } else if(index == 1){
+            $scope.replicateToLocal();
+          } else if(index == 2){
+            var live = DB.toggleLive();
+            if(live){
+              $scope.replicationIcon = 'live';
+            } else {
+              $scope.replicationIcon = '';
+            }
+
+            //$scope.$apply();
+          }
+          return true;
+        }
+      });
+    });
+
+    // For example's sake, hide the sheet after two seconds
+    // $timeout(function() {
+    //   hideSheet();
+    // }, 2000);
+
+  };
+
   $scope.replicationIcon = '';
 
-  var db = DB.info();
-  var remoteDB = db.remoteDB;
-  var localDB = db.localDB;
-
   $scope.replicateToRemote = function(){
+    var db = DB.info();
+    var remoteDB = db.remoteDB;
+    var localDB = db.localDB;
+    var live = db.live;
     $scope.replicationIcon = 'upload';
     var rep = PouchDB.replicate(localDB, remoteDB, {
-      live: true,
-      retry: true
+      live: live,
+      retry: live
     }).on('change', function (info) {
       // handle change
       $scope.replicationIcon = 'upload';
       $scope.$apply();
     }).on('paused', function (err) {
       // replication paused (e.g. replication up to date, user went offline)
-      $scope.replicationIcon = 'pause';
+
+      if(live){
+        $scope.replicationIcon = 'live';
+      } else {
+        $scope.replicationIcon = '';
+      }
+
       $scope.$apply();
     }).on('active', function () {
       // replicate resumed (e.g. new changes replicating, user went back online)
@@ -57,33 +107,52 @@ angular.module('starter.controllers', [])
       $scope.$apply();
     }).on('denied', function (err) {
       // a document failed to replicate (e.g. due to permissions)
-      $scope.replicationIcon = '';
+      if(live){
+        $scope.replicationIcon = 'live';
+      } else {
+        $scope.replicationIcon = '';
+      }
       $scope.$apply();
     }).on('complete', function (info) {
       // handle complete
-      $scope.replicationIcon = '';
+      if(live){
+        $scope.replicationIcon = 'live';
+      } else {
+        $scope.replicationIcon = '';
+      }
       $scope.$apply();
     }).on('error', function (err) {
       // handle error
-      $scope.replicationIcon = '';
+      if(live){
+        $scope.replicationIcon = 'live';
+      } else {
+        $scope.replicationIcon = '';
+      }
       $scope.$apply();
       alert("There was an error during data replication. Replication failed.");
     });
   }
 
   $scope.replicateToLocal = function(){
+    var db = DB.info();
+    var remoteDB = db.remoteDB;
+    var localDB = db.localDB;
+    var live = db.live;
     $scope.replicationIcon = 'download';
     var rep = PouchDB.replicate(remoteDB, localDB, {
-      live: true,
-      retry: true
+      live: live,
+      retry: live
     }).on('change', function (info) {
       // handle change
       $scope.replicationIcon = 'download';
-      $scope.$apply();
       $state.go($state.current, {}, {reload: true});
     }).on('paused', function (err) {
       // replication paused (e.g. replication up to date, user went offline)
-      $scope.replicationIcon = 'pause';
+      if(live){
+        $scope.replicationIcon = 'live';
+      } else {
+        $scope.replicationIcon = '';
+      }
       $scope.$apply();
     }).on('active', function () {
       // replicate resumed (e.g. new changes replicating, user went back online)
@@ -91,20 +160,33 @@ angular.module('starter.controllers', [])
       $scope.$apply();
     }).on('denied', function (err) {
       // a document failed to replicate (e.g. due to permissions)
-      $scope.replicationIcon = '';
+      if(live){
+        $scope.replicationIcon = 'live';
+      } else {
+        $scope.replicationIcon = '';
+      }
       $scope.$apply();
     }).on('complete', function (info) {
       // handle complete
-      $scope.replicationIcon = '';
-      $scope.$apply();
+      if(live){
+        $scope.replicationIcon = 'live';
+      } else {
+        $scope.replicationIcon = '';
+      }
+
       $state.go($state.current, {}, {reload: true});
     }).on('error', function (err) {
       // handle error
       alert("There was an error during data replication. Replication failed.");
-      $scope.replicationIcon = '';
+      if(live){
+        $scope.replicationIcon = 'live';
+      } else {
+        $scope.replicationIcon = '';
+      }
       $scope.$apply();
     });
   }
+
   $scope.replicateToLocal();
 
 

@@ -11,7 +11,7 @@
 
       <ion-nav-buttons side="right">
         <div ng-switch="isOnline">
-          <button ng-switch-when="true" class="button button-clear textPincloudDarkTransparent">
+          <button ng-switch-when="true" class="button button-clear">
             <i class="icon ion-wifi"></i> <!-- style="color:#a4c639" -->
           </button>
           <button ng-switch-when="false" class="button button-clear textPincloudDarkTransparent">
@@ -29,13 +29,13 @@
               <i class="icon ion-android-upload"></i>
             </button>
           </div>
-          <div ng-switch-when="pause">
-            <button ng-click="replicateToLocal()" class="button button-clear">
+          <div ng-switch-when="live">
+            <button ng-click="cloudSettings()" class="button button-clear">
               <i class="icon ion-android-cloud"></i>
             </button>
           </div>
           <div ng-switch-default>
-            <button ng-click="replicateToLocal()" class="button button-clear">
+            <button ng-click="cloudSettings()" class="button button-clear">
               <i class="icon ion-android-cloud-outline"></i>
             </button>
           </div>
