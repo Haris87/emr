@@ -12,7 +12,12 @@
           <i class="icon ion-information"></i>
         </div>
         <div class="timeline-item">
-          <h4>{{measure.date | date:'mediumDate'}}</h4>
+          <h4>{{measure.date | date:'mediumDate'}}
+            <span class="pos-absolute-right">
+              <button class="button button-clear button-stable button-small" ng-click="showConfirm(measure)"><i class="icon ion-close"></i></button>
+            </span>
+          </h4>
+
           <div class="timeline-stats">
             <span class="measurement">Systolic: {{measure.systolic}}</span>
             <span class="measurement">Diastolic: {{measure.diastolic}} </span>
@@ -34,22 +39,14 @@
     <div class="center" style="padding-top:20px;padding-bottom:20px;">
       <button class="button button-outline button-positive center" ng-if="limit <= allMeasurements.length" ng-click="increaseLimit()">Load more...</button>
     </div>
-    <div class="divider-title">October 25, 2016</div>
-    <p>
-      <div style="vertical-align:middle;display:inline-block;"><i class="ion-ios-circle-filled color-red"></i> <span style="vertical-align:middle;">High blood pressure</span> </div>
-        <div style="vertical-align:middle;display:block;"><i class="ion-ios-circle-filled color-yellow"></i> Pre-high blood pressure </div>
-        <div style="vertical-align:middle;display:block;"><i class="ion-ios-circle-filled color-green"></i> Normal blood pressure </div>
-        <div style="vertical-align:middle;display:block;"><i class="ion-ios-circle-filled color-blue"></i> Low blood pressure </div>
+    <div class="divider-title">Measurement color meaning</div>
+    <p style="margin-left:10px;">
+        <div style="vertical-align:middle;" ><i class="ion-ios-circle-filled color-red"></i> High blood pressure </div>
+        <div style="vertical-align:middle;"><i class="ion-ios-circle-filled color-yellow"></i> Pre-high blood pressure </div>
+        <div style="vertical-align:middle;"><i class="ion-ios-circle-filled color-green"></i> Normal blood pressure </div>
+        <div style="vertical-align:middle;"><i class="ion-ios-circle-filled color-blue"></i> Low blood pressure </div>
     </p>
-
-
-
-    <pre>
-      {{allMeasurements | json}}
-
-    </pre>
   </ion-content>
-
 </ion-view>
 
 <script id="blood-pressure-modal.html" type="text/ng-template">
@@ -95,6 +92,22 @@
           Close
         </button>
       </form>
+    </ion-content>
+  </ion-modal-view>
+</script>
+
+<script id="delete-modal.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Blood Pressure Measurement</h1>
+    </ion-header-bar>
+    <ion-content>
+      Are you sure you want to delete this entry?
+      <div class="button-bar">
+        <button class="button">First</button>
+        <button class="button">Second</button>
+        <button class="button">Third</button>
+      </div>
     </ion-content>
   </ion-modal-view>
 </script>

@@ -2,7 +2,7 @@ angular.module('starter.services', [])
 
 .factory('DB', function($http) {
   var info = {};
-  info.live = true;
+  info.live = false;
   info.username = "pincloud";
   info.password = "p1ncl00d";
   info.database_name = "emr";

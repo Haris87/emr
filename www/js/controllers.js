@@ -129,7 +129,7 @@ angular.module('starter.controllers', [])
         $scope.replicationIcon = '';
       }
       $scope.$apply();
-      alert("There was an error during data replication. Replication failed.");
+      console.log("There was an error during data replication. Replication failed.");
     });
   }
 
@@ -177,7 +177,7 @@ angular.module('starter.controllers', [])
       $state.go($state.current, {}, {reload: true});
     }).on('error', function (err) {
       // handle error
-      alert("There was an error during data replication. Replication failed.");
+      console.log("There was an error during data replication. Replication failed.");
       if(live){
         $scope.replicationIcon = 'live';
       } else {
@@ -487,9 +487,11 @@ angular.module('starter.controllers', [])
   $scope.getHereditary();
 })
 
-.controller('BloodPressureCtrl', function($scope, $stateParams, $location, $ionicModal) {
+.controller('BloodPressureCtrl', function($scope, $stateParams, $location, $ionicModal, $ionicPopup) {
   var db = new PouchDB('emr', {auto_compaction: true});
   var id = "bloodpressure";
+
+  ionic.Platform.ready(function(){
 
   $scope.increaseLimit = function(){
     $scope.limit += $scope.limit;
@@ -548,10 +550,10 @@ angular.module('starter.controllers', [])
       $scope.$broadcast('scroll.refreshComplete');
     }).catch(function (err) {
       console.log(err);
+      $scope.createIndex();
       $scope.$broadcast('scroll.refreshComplete');
     });
   }
-  $scope.getMeasurements();
 
 
   /*--------------- index - mapreducce ---------------*/
@@ -566,14 +568,14 @@ angular.module('starter.controllers', [])
         by_id: {
           map: function (doc) {
             if(doc.type == "bloodpressure") {
-                emit(doc.id);
+              emit(doc.id);
             }
           }.toString()
         },
         object: {
           map: function (doc) {
             if(doc.type == "bloodpressure") {
-                emit(doc.id, {doc: doc});
+              emit(doc.id, {doc: doc});
             }
           }.toString()
         },
@@ -581,14 +583,22 @@ angular.module('starter.controllers', [])
     };
 
     // save it
-    db.put(ddoc).then(function () {
-      console.log("index created");
+    db.get(ddoc._id).then(function(result){
+      console.log(result);
     }).catch(function (err) {
       console.log(err);
-    });
+      if(err.status == 404){
+        db.put(ddoc).then(function () {
+          console.log("index created");
+        }).catch(function (err) {
+          console.log(err);
+        });
+      }
+    })
+
 
   }
-  $scope.createIndex();
+  //$scope.createIndex();
 
   /*--------------- end index - mapreducce ---------------*/
 
@@ -599,7 +609,7 @@ angular.module('starter.controllers', [])
       console.log(response);
 
       db.get(response.id).then(function(doc) {
-        console.log(doc);
+        $scope.closeModal();
       });
 
     }).catch(function (err) {
@@ -607,12 +617,32 @@ angular.module('starter.controllers', [])
     });
   }
 
+  $scope.showConfirm = function(doc) {
+     var confirmPopup = $ionicPopup.confirm({
+       title: 'Delete entry',
+       template: 'Are you sure you want to delete this entry?'
+     });
+
+     confirmPopup.then(function(res) {
+       console.log(doc);
+       if(res) {
+         doc._deleted = true;
+         console.log(db.put(doc));
+         $scope.getMeasurements();
+         console.log('deleted');
+       } else {
+         console.log('not deleted');
+       }
+     });
+   };
+
   $ionicModal.fromTemplateUrl('blood-pressure-modal.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.modal = modal;
   });
+
   $scope.openModal = function() {
     $scope.modal.show();
   };
@@ -624,6 +654,12 @@ angular.module('starter.controllers', [])
   $scope.$on('$destroy', function() {
     $scope.modal.remove();
   });
+
+  setTimeout(function () {
+    $scope.getMeasurements();
+  }, 500);
+});
+
 
 })
 

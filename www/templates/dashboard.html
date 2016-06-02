@@ -5,12 +5,12 @@
     <div class="dash-section">
       <div class="row responsive-sm">
         <div class="col col-33" style="margin-right:20px;min-width:260px;" ng-if="patient == null && loaded">
-          <a class="button button-large button-positive button-outline center" href="#/app/profile"><i class="icon ion-person"></i> Fill profile info</a>
+          <!-- <a class="button button-large button-positive button-outline center" href="#/app/profile"><i class="icon ion-person"></i> Fill profile info</a> -->
         </div>
         <div class="col col-33" style="min-width:260px;" >
           <div class="img-circle-large center textCenter">
             <div class="img-circle-src" ng-if="profilePic != null && loaded" style = 'background-image: url({{profilePic}})'></div>
-            <i class="icon ion-android-person textPincloudDark" ng-if="profilePic == null && loaded" style="color:#666;font-size:250px;"></i> <!--  -->
+            <i class="icon ion-android-person textPincloudDark" ng-if="profilePic == null && loaded" style="color:#666;font-size:265px;"></i> <!--  -->
           </div>
         </div>
         <div class="col col-33" ng-if="patient != null">
@@ -381,7 +381,7 @@
           <div class="item item-divider">
               DB contents
           </div>
-          <pre style="max-width:600px;">{{output | json}}</pre>
+          <!-- <pre style="max-width:600px;">{{output | json}}</pre> -->
           <button class="button button-full button-assertive" ng-click="deleteDb()">
             Delete Database
           </button>
