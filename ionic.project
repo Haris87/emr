@@ -1,4 +1,11 @@
 {
   "name": "emr",
-  "app_id": ""
+  "app_id": "",
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "15.44.384.13"
+    }
+  ]
 }
