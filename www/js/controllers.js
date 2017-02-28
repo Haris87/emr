@@ -1,21 +1,5 @@
 angular.module('starter.controllers')
 
-.controller('BloodSugarCtrl', function($scope, $stateParams, $location) {
-  console.log($location.path());
-})
-
-.controller('WeightCtrl', function($scope, $stateParams, $location) {
-  console.log($location.path());
-})
-
-.controller('PhysicalActivityCtrl', function($scope, $stateParams, $location) {
-  console.log($location.path());
-})
-
-.controller('CholesterolCtrl', function($scope, $stateParams, $location) {
-  console.log($location.path());
-})
-
 .controller('AllergiesCtrl', function($scope, $stateParams, $location) {
   console.log($location.path());
 })
