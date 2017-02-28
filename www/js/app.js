@@ -231,15 +231,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services',  
       }
     })
 
-    .state('app.referrals', {
-      url: '/referrals',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/referrals.html',
-          controller: 'ReferralsCtrl'
-        }
-      }
-    })
+    // .state('app.referrals', {
+    //   url: '/referrals',
+    //   views: {
+    //     'menuContent': {
+    //       templateUrl: 'templates/referrals.html',
+    //       controller: 'ReferralsCtrl'
+    //     }
+    //   }
+    // })
 
     .state('app.hospitalisations', {
       url: '/hospitalisations',

@@ -1,24 +1,4 @@
 angular.module('starter.controllers')
-// 
-// .controller('DietCtrl', function($scope, $stateParams, $location) {
-//   console.log($location.path());
-// })
-//
-// .controller('SmokingCtrl', function($scope, $stateParams, $location) {
-//   console.log($location.path());
-// })
-//
-// .controller('AlcoholCtrl', function($scope, $stateParams, $location) {
-//   console.log($location.path());
-// })
-
-.controller('DiagnosesCtrl', function($scope, $stateParams, $location) {
-  console.log($location.path());
-})
-
-.controller('DoctorVisitsCtrl', function($scope, $stateParams, $location) {
-  console.log($location.path());
-})
 
 .controller('ReferralsCtrl', function($scope, $stateParams, $location) {
   console.log($location.path());
