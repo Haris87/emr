@@ -1,5 +1,88 @@
 <ion-view view-title="Diet">
+  <div class="bar bar-footer pincloudGreen textPincloudWhite" ng-click="modal.show()">
+
+    <div class="title"><i class="ion-compose"></i> New measurement</div>
+  </div>
   <ion-content>
-    <h1>Diet</h1>
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="getMeasurements()"></ion-refresher>
+    <div class="divider-title" style="z-index:999;"><i class="icon ion-calendar"></i> Most recent measurements</div>
+    <ul class="timeline">
+      <li ng-repeat="measure in allMeasurements | orderBy: 'date' :true | limitTo: limit">
+        <div class="timeline-thumb bg-color-{{measure.color}} bg-color-white timeline-icon">
+          <i class="icon ion-information"></i>
+        </div>
+        <div class="timeline-item">
+          <h4>{{measure.date | date:'mediumDate'}}
+            <span class="pos-absolute-right">
+              <button class="button button-clear button-stable button-small" ng-click="showConfirm(measure)"><i class="icon ion-close"></i></button>
+            </span>
+          </h4>
+
+          <div class="timeline-stats">
+            <span class="measurement">Diet type: {{measure.diet}}</span>
+            <span class="measurement">Duration: {{measure.duration}}</span>
+            <p class="col-90">{{measure.comments}}</p>
+            <span class="pos-absolute-right"><i class="icon ion-clock"></i> <span am-time-ago="measure.date"></span></span>
+          </div>
+          <br/>
+        </div>
+        <div class="divider-title" ng-if="$index == 3" style="z-index:999;">Older measurements</div>
+      </li>
+
+    </ul>
+
+    <div class="center" style="padding-top:20px;padding-bottom:20px;">
+      <button class="button button-outline button-positive center" ng-if="limit <= allMeasurements.length" ng-click="increaseLimit()">Load more...</button>
+    </div>
   </ion-content>
 </ion-view>
+
+<script id="diet-modal.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Diet Measurement</h1>
+    </ion-header-bar>
+    <ion-content>
+      <form>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Diet type</span>
+          <input ng-model="diet.diet" type="text" placeholder="e.g.: Atkins diet"/>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Duration</span>
+          <input ng-model="diet.duration" type="text" placeholder="e.g.: 1 month"/>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Date of Measurement</span>
+          <input ng-model="diet.date" type="text" placeholder="e.g.: 31/12/2015" />
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Comments</span>
+          <textarea ng-model="diet.comments" type="text" placeholder="Comments..."></textarea>
+        </label>
+        <button class="button button-full button-balanced" ng-click="insertDiet(diet)">
+          Save
+        </button>
+        <button class="button button-full button-assertive" ng-click="closeModal()">
+          Close
+        </button>
+      </form>
+    </ion-content>
+  </ion-modal-view>
+</script>
+
+<script id="delete-modal.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Diet Measurement</h1>
+    </ion-header-bar>
+    <ion-content>
+      Are you sure you want to delete this entry?
+      <div class="button-bar">
+        <button class="button">First</button>
+        <button class="button">Second</button>
+        <button class="button">Third</button>
+      </div>
+    </ion-content>
+  </ion-modal-view>
+</script>
