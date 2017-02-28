@@ -1,24 +1,24 @@
 angular.module('starter.controllers')
-
-.controller('AllergiesCtrl', function($scope, $stateParams, $location) {
-  console.log($location.path());
-})
-
-.controller('DisabilitiesCtrl', function($scope, $stateParams, $location) {
-  console.log($location.path());
-})
-
-.controller('SymptomReportsCtrl', function($scope, $stateParams, $location) {
-  console.log($location.path());
-})
-
-.controller('VaccinationsCtrl', function($scope, $stateParams, $location) {
-  console.log($location.path());
-})
-
-.controller('DiseasesCtrl', function($scope, $stateParams, $location) {
-  console.log($location.path());
-})
+//
+// .controller('AllergiesCtrl', function($scope, $stateParams, $location) {
+//   console.log($location.path());
+// })
+//
+// .controller('DisabilitiesCtrl', function($scope, $stateParams, $location) {
+//   console.log($location.path());
+// })
+//
+// .controller('SymptomReportsCtrl', function($scope, $stateParams, $location) {
+//   console.log($location.path());
+// })
+//
+// .controller('VaccinationsCtrl', function($scope, $stateParams, $location) {
+//   console.log($location.path());
+// })
+//
+// .controller('DiseasesCtrl', function($scope, $stateParams, $location) {
+//   console.log($location.path());
+// })
 
 .controller('DietCtrl', function($scope, $stateParams, $location) {
   console.log($location.path());
