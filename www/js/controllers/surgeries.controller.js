@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('SurgeriesCtrl', function($scope, $stateParams, $location, $ionicModal, $ionicPopup) {
+.controller('SurgeriesCtrl', function($scope, $stateParams, $location, $ionicModal, $timeout, $ionicPopup) {
   var db = new PouchDB('emr', {auto_compaction: true});
   var id = "surgeries";
 
@@ -41,7 +41,7 @@ angular.module('starter.controllers')
   $scope.getMeasurements = function(){
 
     $scope.limit = 5;
-	$scope.allMeasurements = [];
+	  $scope.allMeasurements = [];
 
     db.query('index_surgeries/object').then(function (res) {
       console.log(res);
@@ -49,25 +49,10 @@ angular.module('starter.controllers')
         var row = res.rows[i].value.doc;
         row.id = i;
         row.color = $scope.getColor(row);
-		var file = null;
-
-		if(typeof row._attachments != 'undefined'){
-			db.getAttachment(row._id, 'file')
-			.then(function (blob) {
-			  console.log(blob);
-			  var url = URL.createObjectURL(blob);
-			  file = url;
-			  //$rootScope.$apply();
-			}).catch(function (err) {
-			  console.log(err);
-			});
-
-		}
-		console.log(row);
-		row.file = file;
         $scope.allMeasurements.push(row);
+
       };
-      console.log($scope.allMeasurements);
+
       // db.get(res.rows[0]).then(function(document){
       //   console.log(document);
       // });

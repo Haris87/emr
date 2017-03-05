@@ -230,3 +230,18 @@ label, p, span, input {
   font-size: 1.2em;
   color:#333 !important;
 }
+
+/*---------------- images/files ---------------*/
+
+.thumbnail {
+  max-height: 80px;
+  border: 2px solid #e4e4e4;
+  border-radius: 3px;
+}
+
+.fullscreen {
+  max-height: auto;
+  width:100%;
+  border: 2px solid #e4e4e4;
+  border-radius: 3px;
+}

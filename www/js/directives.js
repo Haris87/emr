@@ -1,0 +1,28 @@
+angular.module('starter')
+
+.directive('blobSrc', function(){
+  console.info('Loaded');
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+
+      var db = new PouchDB('emr', {auto_compaction: true});
+      var row = JSON.parse(attrs.blobItem);
+      var filename = attrs.blobFilename;
+
+      // update scope when items are added to show changed images
+      scope.$watch("allMeasurements",function(newValue,oldValue) {
+        scope.$evalAsync(setBlobSrc);
+      });
+
+      function setBlobSrc(){
+        db.getAttachment(row._id, filename)
+        .then(function (blob) {
+          attrs.$set('src', URL.createObjectURL(blob));
+        }).catch(function (err) {
+          console.log(err);
+        });
+      }
+    }
+  };
+});
