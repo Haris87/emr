@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.directive('blobSrc', function(){
+.directive('blob', function(){
   console.info('Loaded');
   return {
     restrict: 'A',

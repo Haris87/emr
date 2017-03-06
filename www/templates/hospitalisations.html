@@ -20,7 +20,13 @@
 
           <div class="timeline-stats">
             <span class="measurement">Diagnoses: {{measure.diagnoses}}</span>
-            <span class="measurement">Discharge note: <img style="max-height:80px;" ng-src="{{measure.discharge_file}}" /></span>
+            <span class="measurement">Discharge note: <br/>             
+                <img ng-class="{'fullscreen':measure.clicked, 'thumbnail':!measure.clicked}"
+                     ng-init="measure.clicked=false"
+                     ng-click="measure.clicked = !measure.clicked; alert('click')"
+                     blob-item="{{measure}}"
+                     blob-filename="discharge_file" blob/>
+            </span>
             <p class="col-90">{{measure.comments}}</p>
             <span class="pos-absolute-right"><i class="icon ion-clock"></i> <span am-time-ago="measure.date"></span></span>
           </div>

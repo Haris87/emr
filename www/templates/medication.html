@@ -23,7 +23,12 @@
             <span class="measurement">Dosage: {{measure.dosage}}</span>
             <span class="measurement">Start date: {{measure.startdate}}</span>
             <span class="measurement">End date: {{measure.enddate}}</span>
-            <span class="measurement">Prescription: <img style="max-height:80px;" ng-src="{{measure.prescription_file}}" /></span>
+            <span class="measurement">Prescription: <br/>
+                <img ng-class="{'fullscreen':measure.clicked, 'thumbnail':!measure.clicked}"
+                     ng-init="measure.clicked=false"
+                     ng-click="measure.clicked = !measure.clicked; alert('click')"
+                     blob-item="{{measure}}"
+                     blob-filename="prescription_file" blob/>
             <p class="col-90">{{measure.comments}}</p>
             <span class="pos-absolute-right"><i class="icon ion-clock"></i> <span am-time-ago="measure.date"></span></span>
           </div>

@@ -19,10 +19,9 @@
           </h4>
 
           <div class="timeline-stats">
-            <span class="measurement">{{measure.clicked}}</span>
             <span class="measurement">Surgery: {{measure.surgery}}</span>
             <span class="measurement">Image: <br/>
-              <img ng-class="{'fullscreen':measure.clicked, 'thumbnail':!measure.clicked}" ng-init="measure.clicked=false" ng-click="measure.clicked = !measure.clicked; alert('click')" blob-item="{{measure}}" blob-filename="file" blob-src />
+              <img ng-class="{'fullscreen':measure.clicked, 'thumbnail':!measure.clicked}" ng-init="measure.clicked=false" ng-click="measure.clicked = !measure.clicked; alert('click')" blob-item="{{measure}}" blob-filename="file" blob/>
             </span>
             <p class="col-90">{{measure.comments}}</p>
             <span class="pos-absolute-right"><i class="icon ion-clock"></i> <span am-time-ago="measure.date"></span></span>

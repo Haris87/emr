@@ -20,8 +20,22 @@
 
           <div class="timeline-stats">
             <span class="measurement">Reason: {{measure.reason}}</span>
-            <span class="measurement">Referral: <img style="max-height:80px;" ng-src="{{measure.referral_file}}" /></span>
-            <span class="measurement">Treatment: <img style="max-height:80px;" ng-src="{{measure.treatment_file}}" /></span>
+            <span class="measurement">Referral:
+                <br/>
+                <img ng-class="{'fullscreen':measure.clicked, 'thumbnail':!measure.clicked}"
+                     ng-init="measure.clicked=false"
+                     ng-click="measure.clicked = !measure.clicked; alert('click')"
+                     blob-item="{{measure}}"
+                     blob-filename="referral_file" blob/>
+            </span>
+            <span class="measurement">Treatment:
+                <br/>
+                <img ng-class="{'fullscreen':measure.clicked, 'thumbnail':!measure.clicked}"
+                     ng-init="measure.clicked=false"
+                     ng-click="measure.clicked = !measure.clicked; alert('click')"
+                     blob-item="{{measure}}"
+                     blob-filename="treatment_file" blob/>
+            </span>
             <p class="col-90">{{measure.comments}}</p>
             <span class="pos-absolute-right"><i class="icon ion-clock"></i> <span am-time-ago="measure.date"></span></span>
           </div>
