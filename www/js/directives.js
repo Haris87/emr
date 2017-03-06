@@ -25,4 +25,17 @@ angular.module('starter')
       }
     }
   };
+})
+
+.directive('timeline', function(){
+  console.info('Loaded');
+  return {
+    restrict: 'E',
+    transclude: true,
+    templateUrl: 'templates/timeline.template.html',
+    link: function (scope, element, attrs) {
+        console.info(element);
+        console.info('timeline directive');
+    }
+  };
 });
